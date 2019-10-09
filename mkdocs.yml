@@ -10,7 +10,7 @@ markdown_extensions:
     - mdx_math
     
 theme:
-  name: 'rtd-dropdown'
+  name: 'readthedocs'
   highlightjs: true
   hljs_languages: []
   include_homepage_in_sidebar: true
@@ -38,6 +38,7 @@ nav:
 - Research:
   - Databases: 'Databases.md'
   - ElasticSearch: 'ElasticSearch.md'
+  - Neo4J And Cypher: 'neo4j.md'
 
 
 

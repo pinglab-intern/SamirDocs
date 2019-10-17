@@ -1,4 +1,10 @@
-# ElasticSearch Notes
+# ElasticSearch 
+
+## Searching Elastic Search for Articles that reference Drugs and Chemicals related to oxidative stress
+
+![Chemical Drug Co-occurance Clustermap](../assets/chemical_drug_occurance_clustermap.png "Chemical Drug Co-occurance Clustermap")
+- Searched pubmed data for co-occurance of a drug and chemical name in the abstract of a paper
+- Created list of documents each drug/chemical occurs in for later use
 
 ## Udemy Course Notes
 

@@ -1,11 +1,11 @@
 # Neo4j and Cypher Notes
 
-## Creating Drug/Chemical Co-Occurance Graph
+## Creating Drug/Chemical Co-Occurrence Graph
 - Data on occurance of drugs/chemicals in pubmed abstracts imported
   - generated in section detailed in elasticsearch document
 
 Python neo4j-driver used to create a graph data base with the schema:
-![Co-Occurance Graph Schema](../assets/co-occurance_schema.png "Co-Occurance Graph Schema")
+![Co-Occurrence Graph Schema](../assets/co-occurance_schema.png "Co-Occurrence Graph Schema")
 
 
 ## Querying Reactome in Cypher

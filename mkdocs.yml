@@ -43,9 +43,9 @@ nav:
   - Querying ElasticSearch in Python: 'instructions/Query_Python_Elastic.md'
   - Querying Neo4J in Python: 'instructions/Query_Neo4j_Python.md'
 - Notes:
-  - Databases: 'Databases.md'
-  - ElasticSearch: 'ElasticSearch.md'
-  - Neo4J And Cypher: 'neo4j.md'
+  - Databases: 'notes/Databases.md'
+  - ElasticSearch: 'notes/ElasticSearch.md'
+  - Neo4J And Cypher: 'notes/neo4j.md'
 
 
 

@@ -5,7 +5,7 @@
   - generated in section detailed in elasticsearch document
 
 Python neo4j-driver used to create a graph data base with the schema:
-![Co-Occurrence Graph Schema](../assets/co-occurance_schema.png "Co-Occurrence Graph Schema")
+![Co-Occurrence Graph Schema](assets/co-occurance_schema.png "Co-Occurrence Graph Schema")
 
 
 ## Querying Reactome in Cypher

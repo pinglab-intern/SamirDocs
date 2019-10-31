@@ -1,2 +1,5 @@
 # MacOS Data store
 .DS_Store
+
+# mkdocs generated files
+site

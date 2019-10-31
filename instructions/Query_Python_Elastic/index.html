@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  <link rel="shortcut icon" href="../../img/favicon.ico">
+  <title>Querying ElasticSearch in Python - SamirDocs</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Querying ElasticSearch in Python";
+    var mkdocs_page_input_path = "instructions/Query_Python_Elastic.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href="../.." class="icon icon-home"> SamirDocs</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+	  
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../..">Home</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">Implementation</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../../implementation/chemical_drug_elastic_occurance/chemical_drug_elastic_occurance/">Querying ElasticSearch for Drug/Chemical Occurrence</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../implementation/Explore_Drug_chemical_OxStress/Explore_Drug_chemical_OxStress/">Finding Common Pathways Used by Drugs</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../implementation/Create_Drug_Cooccurance_Graph/">Creating Drug/Chemical Co-Occurence GraphDB</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">Instruction</span>
+    <ul class="subnav">
+                <li class=" current">
+                    
+    <a class="current" href="./">Querying ElasticSearch in Python</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l3"><a href="#querying-elasticsearch-in-python">Querying ElasticSearch in Python</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l4" href="#running-the-elasticsearch-server">Running the ElasticSearch Server</a></li>
+        
+            <li><a class="toctree-l4" href="#importing-required-modules">Importing required modules</a></li>
+        
+            <li><a class="toctree-l4" href="#connecting-to-the-elasticsearch-instance">Connecting to the ElasticSearch Instance</a></li>
+        
+            <li><a class="toctree-l4" href="#example-search-on-pubmed-article-titles">Example search on pubmed article title's</a></li>
+        
+            <li><a class="toctree-l4" href="#parsing-hits-for-relevant-pubmed-articles">Parsing hits for relevant pubmed articles</a></li>
+        
+        </ul>
+    
+
+    </ul>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../Query_Neo4j_Python/">Querying Neo4J in Python</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">Notes</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../../notes/Databases/">Databases</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../notes/ElasticSearch/">ElasticSearch</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../notes/neo4j/">Neo4J And Cypher</a>
+                </li>
+    </ul>
+	    </li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../..">SamirDocs</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>Instruction &raquo;</li>
+        
+      
+    
+    <li>Querying ElasticSearch in Python</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="querying-elasticsearch-in-python">Querying ElasticSearch in Python</h1>
+<p>This instruction set requires having a running elasticsearch instance. </p>
+<h2 id="running-the-elasticsearch-server">Running the ElasticSearch Server</h2>
+<p>To run the ElasticSearch instance in the cloud navigate to the folder ~/software/elasticsearch-6.5.4/bin:<br />
+<code>cd ~/software/elasticsearch-6.5.4/bin</code>  </p>
+<p>Then type: <code>./elasticsearch</code></p>
+<h2 id="importing-required-modules">Importing required modules</h2>
+<pre class="codehilite"><code class="language-python">from elasticsearch import Elasticsearch
+from elasticsearch_dsl import Search, Q</code></pre>
+
+
+<h2 id="connecting-to-the-elasticsearch-instance">Connecting to the ElasticSearch Instance</h2>
+<pre class="codehilite"><code class="language-python">es = Elasticsearch()</code></pre>
+
+
+<h2 id="example-search-on-pubmed-article-titles">Example search on pubmed article title's</h2>
+<pre class="codehilite"><code class="language-python">search_term = 'herceptin'
+
+# `hits` variable will store all hits for the search term defined above
+hits = Search(
+    using=es,
+    index=&quot;pubmed&quot;
+    ).params(
+        request_timeout=300
+    ).query(
+        &quot;match_phrase&quot;,
+        title=search_term, # title is the defined field to look for search term in, can be modified to abstract/date/etc.
+    )</code></pre>
+
+
+<h2 id="parsing-hits-for-relevant-pubmed-articles">Parsing hits for relevant pubmed articles</h2>
+<pre class="codehilite"><code class="language-python">for hit in hits:
+    print('Title:',hit.title, 'PMID:', hit.pmid)</code></pre>
+
+
+<pre class="codehilite"><code>Title: [Combination therapy herceptin+taxotere/Herceptin+navelbine]. PMID: 23573614
+Title: Herceptin. PMID: 10214591
+Title: [Herceptin]. PMID: 10883160
+Title: Herceptin. PMID: 18071947
+Title: [Herceptin (trastuzumab)]. PMID: 17687197
+Title: Trastuzumab (herceptin). PMID: 21816914
+Title: [Trastuzumab (Herceptin)]. PMID: 11977556
+Title: Development of herceptin. PMID: 15687596
+Title: Subcutaneous herceptin therapy. PMID: 23996323
+Title: Dose scheduling--Herceptin. PMID: 11694785</code></pre>
+
+
+<pre class="codehilite"><code class="language-python"># Showing available properties in the pubmed hit
+dir(hit)</code></pre>
+
+
+<pre class="codehilite"><code>['MeSH', 'abstract', 'date', 'journal', 'location', 'meta', 'pmid', 'title']</code></pre>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../Query_Neo4j_Python/" class="btn btn-neutral float-right" title="Querying Neo4J in Python">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../../implementation/Create_Drug_Cooccurance_Graph/" class="btn btn-neutral" title="Creating Drug/Chemical Co-Occurence GraphDB"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../../implementation/Create_Drug_Cooccurance_Graph/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../Query_Neo4j_Python/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '../..';</script>
+    <script src="../../js/theme.js" defer></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML" defer></script>
+      <script src="../../search/main.js" defer></script>
+
+</body>
+</html>

@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  <link rel="shortcut icon" href="../../img/favicon.ico">
+  <title>Neo4J And Cypher - SamirDocs</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Neo4J And Cypher";
+    var mkdocs_page_input_path = "notes/neo4j.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href="../.." class="icon icon-home"> SamirDocs</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+	  
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../..">Home</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">Implementation</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../../implementation/chemical_drug_elastic_occurance/chemical_drug_elastic_occurance/">Querying ElasticSearch for Drug/Chemical Occurrence</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../implementation/Explore_Drug_chemical_OxStress/Explore_Drug_chemical_OxStress/">Finding Common Pathways Used by Drugs</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../implementation/Create_Drug_Cooccurance_Graph/">Creating Drug/Chemical Co-Occurence GraphDB</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">Instruction</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../../instructions/Query_Python_Elastic/">Querying ElasticSearch in Python</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../instructions/Query_Neo4j_Python/">Querying Neo4J in Python</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">Notes</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../Databases/">Databases</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../ElasticSearch/">ElasticSearch</a>
+                </li>
+                <li class=" current">
+                    
+    <a class="current" href="./">Neo4J And Cypher</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l3"><a href="#neo4j-and-cypher-notes">Neo4j and Cypher Notes</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l4" href="#creating-drugchemical-co-occurrence-graph">Creating Drug/Chemical Co-Occurrence Graph</a></li>
+        
+            <li><a class="toctree-l4" href="#querying-reactome-in-cypher">Querying Reactome in Cypher</a></li>
+        
+        </ul>
+    
+
+    </ul>
+                </li>
+    </ul>
+	    </li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../..">SamirDocs</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>Notes &raquo;</li>
+        
+      
+    
+    <li>Neo4J And Cypher</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="neo4j-and-cypher-notes">Neo4j and Cypher Notes</h1>
+<h2 id="creating-drugchemical-co-occurrence-graph">Creating Drug/Chemical Co-Occurrence Graph</h2>
+<ul>
+<li>Data on occurance of drugs/chemicals in pubmed abstracts imported</li>
+<li>generated in section detailed in elasticsearch document</li>
+</ul>
+<p>Python neo4j-driver used to create a graph data base with the schema:
+<img alt="Co-Occurrence Graph Schema" src="../assets/co-occurance_schema.png" title="Co-Occurrence Graph Schema" /></p>
+<h2 id="querying-reactome-in-cypher">Querying Reactome in Cypher</h2>
+<h3 id="finding-gene-products-associated-with-cellular-response-to-oxidative-stress">Finding gene products associated with cellular response to oxidative stress</h3>
+<pre class="codehilite"><code>MATCH (gt:GO_Term{accession: &quot;0034599&quot;})-[:goBiologicalProcess]-(p:Pathway)-[]-(r:Reaction)-[]-(ge:GenomeEncodedEntity)
+WHERE ge.speciesName = &quot;Homo sapiens&quot;
+RETURN DISTINCT ge.displayName
+LIMIT 10</code></pre>
+
+
+<h4 id="results">Results</h4>
+<p>"2xHC-TXN2 [mitochondrial matrix]"<br />
+"TXN [cytosol]" <br />
+"P4HB [endoplasmic reticulum lumen]"<br />
+"2xHC-TXN [cytosol]"<br />
+"HC53,56-P4HB [endoplasmic reticulum lumen]"<br />
+"TXN2 [mitochondrial matrix]"  </p>
+<h3 id="finding-gene-products-associated-with-cardiovascular-system-disease">Finding gene products associated with cardiovascular system disease</h3>
+<pre class="codehilite"><code>MATCH (d:Disease)-[]-(p:PhysicalEntity)
+WHERE toLower(toString(d.displayName)) CONTAINS 'card'
+OR toLower(toString(d.displayName)) CONTAINS 'vasc'
+RETURN d.displayName, size((d)--(:Drug)) as Drugs, size((d)--(:GenomeEncodedEntity)) as GeneEntities,  count(p) AS PhysicalEntityCount, size((d)--(:PhysicalEntity)--(:Disease)) as PEAssocDisease, size((d)--(:PhysicalEntity)--(:ReactionLikeEvent)) as PEAssocReactLike, size((d)--(:PhysicalEntity)--(:GenomeEncodedEntity)) as PEAssocGeneEntities
+ORDER BY PhysicalEntityCount DESC</code></pre>
+
+
+<h4 id="results_1">Results</h4>
+<table>
+<thead>
+<tr>
+<th>d.displayName</th>
+<th>Drugs</th>
+<th>GeneEntities</th>
+<th>PhysicalEntityCount</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>"cardiofaciocutaneous syndrome"</td>
+<td>0</td>
+<td>23</td>
+<td>34</td>
+</tr>
+<tr>
+<td>"myocardial infarction"</td>
+<td>20</td>
+<td>0</td>
+<td>20</td>
+</tr>
+<tr>
+<td>"basal ganglia cerebrovascular disease"</td>
+<td>0</td>
+<td>6</td>
+<td>7</td>
+</tr>
+<tr>
+<td>"cerebrovascular disease"</td>
+<td>5</td>
+<td>0</td>
+<td>5</td>
+</tr>
+</tbody>
+</table>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="../ElasticSearch/" class="btn btn-neutral" title="ElasticSearch"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../ElasticSearch/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+    </span>
+</div>
+    <script>var base_url = '../..';</script>
+    <script src="../../js/theme.js" defer></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML" defer></script>
+      <script src="../../search/main.js" defer></script>
+
+</body>
+</html>

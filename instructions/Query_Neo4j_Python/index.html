@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  <link rel="shortcut icon" href="../../img/favicon.ico">
+  <title>Querying Neo4J in Python - SamirDocs</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Querying Neo4J in Python";
+    var mkdocs_page_input_path = "instructions/Query_Neo4j_Python.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href="../.." class="icon icon-home"> SamirDocs</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+	  
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../..">Home</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">Implementation</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../../implementation/chemical_drug_elastic_occurance/chemical_drug_elastic_occurance/">Querying ElasticSearch for Drug/Chemical Occurrence</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../implementation/Explore_Drug_chemical_OxStress/Explore_Drug_chemical_OxStress/">Finding Common Pathways Used by Drugs</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../implementation/Create_Drug_Cooccurance_Graph/">Creating Drug/Chemical Co-Occurence GraphDB</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">Instruction</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../Query_Python_Elastic/">Querying ElasticSearch in Python</a>
+                </li>
+                <li class=" current">
+                    
+    <a class="current" href="./">Querying Neo4J in Python</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l3"><a href="#querying-a-neo4j-instance-in-python">Querying a Neo4j Instance in Python</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l4" href="#running-neo4j">Running Neo4j</a></li>
+        
+            <li><a class="toctree-l4" href="#importing-required-modules">Importing required modules</a></li>
+        
+            <li><a class="toctree-l4" href="#initializing-driver-and-creating-cypher-query">Initializing Driver and Creating Cypher Query</a></li>
+        
+            <li><a class="toctree-l4" href="#run-cypher-query-and-print-desired-results">Run Cypher query and print desired results</a></li>
+        
+        </ul>
+    
+
+    </ul>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">Notes</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../../notes/Databases/">Databases</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../notes/ElasticSearch/">ElasticSearch</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../notes/neo4j/">Neo4J And Cypher</a>
+                </li>
+    </ul>
+	    </li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../..">SamirDocs</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>Instruction &raquo;</li>
+        
+      
+    
+    <li>Querying Neo4J in Python</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="querying-a-neo4j-instance-in-python">Querying a Neo4j Instance in Python</h1>
+<p>This instruction set requires having a running Neo4j instance. </p>
+<h2 id="running-neo4j">Running Neo4j</h2>
+<p>Neo4j is most easily run locally using the desktop GUI version. Alternatively from the command line it can be run with <code>neo4j start</code></p>
+<h2 id="importing-required-modules">Importing required modules</h2>
+<pre class="codehilite"><code class="language-python">from neo4j import GraphDatabase</code></pre>
+
+
+<h2 id="initializing-driver-and-creating-cypher-query">Initializing Driver and Creating Cypher Query</h2>
+<p>The driver uses the neo4j-driver python package to connect via neo4j's api to my locally running Reactome Database. </p>
+<p>Queries are written the the Cypher query language. A good cheatsheet for commands can be found <a href="https://neo4j.com/docs/cypher-refcard/current/">here</a></p>
+<pre class="codehilite"><code class="language-python"># Initialize connection to database
+driver = GraphDatabase.driver('bolt://localhost:7687', auth=('neo4j', 'Akre1234'))</code></pre>
+
+
+<pre class="codehilite"><code class="language-python">query = 'MATCH (a:Drug) RETURN a.name, a.stId LIMIT 5'</code></pre>
+
+
+<h2 id="run-cypher-query-and-print-desired-results">Run Cypher query and print desired results</h2>
+<p>The query returned name and stId properties of 5 drugs. Each returned record will only contain the specified information form the query.   </p>
+<pre class="codehilite"><code class="language-python">with driver.session() as session:
+    info = session.run(query)
+    for item in info:
+        print('Name:', item.values()[0], 'id:', item.values()[1])</code></pre>
+
+
+<pre class="codehilite"><code>Name: ['trastuzumab', 'herceptin', 'D5v8', 'R-597'] id: R-ALL-9634466
+Name: ['CP-724714'] id: R-ALL-9649889
+Name: ['Afatinib', 'BIBW2992', 'Irreversible TKI inhibitor afatinib generic inhibits  EGFR and  ERBB2 (HER2)'] id: R-ALL-1220577
+Name: ['AZ5104'] id: R-ALL-9649879
+Name: ['Sapitinib'] id: R-ALL-9649894</code></pre>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../../notes/Databases/" class="btn btn-neutral float-right" title="Databases">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../Query_Python_Elastic/" class="btn btn-neutral" title="Querying ElasticSearch in Python"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../Query_Python_Elastic/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../../notes/Databases/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '../..';</script>
+    <script src="../../js/theme.js" defer></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML" defer></script>
+      <script src="../../search/main.js" defer></script>
+
+</body>
+</html>

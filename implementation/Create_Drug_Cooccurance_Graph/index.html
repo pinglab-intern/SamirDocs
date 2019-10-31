@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  <link rel="shortcut icon" href="../../img/favicon.ico">
+  <title>Creating Drug/Chemical Co-Occurence GraphDB - SamirDocs</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Creating Drug/Chemical Co-Occurence GraphDB";
+    var mkdocs_page_input_path = "implementation/Create_Drug_Cooccurance_Graph.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href="../.." class="icon icon-home"> SamirDocs</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+	  
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../..">Home</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">Implementation</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../chemical_drug_elastic_occurance/chemical_drug_elastic_occurance/">Querying ElasticSearch for Drug/Chemical Occurrence</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../Explore_Drug_chemical_OxStress/Explore_Drug_chemical_OxStress/">Finding Common Pathways Used by Drugs</a>
+                </li>
+                <li class=" current">
+                    
+    <a class="current" href="./">Creating Drug/Chemical Co-Occurence GraphDB</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l3"><a href="#creating-co-occurence-graph-of-drugs-chemicals-pmids">Creating Co-Occurence Graph of Drugs-Chemicals-PMIDs</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l4" href="#merging-drug-list-with-drug-occurance-data-sets">Merging Drug List with Drug Occurance Data Sets</a></li>
+        
+            <li><a class="toctree-l4" href="#creating-neo4j-graph-database-for-drug-occurance-in-pmids">Creating Neo4J Graph Database for Drug occurance in PMIDs</a></li>
+        
+            <li><a class="toctree-l4" href="#merging-chemical-list-with-chemical-occurance-data-sets">Merging Chemical List with Chemical Occurance Data Sets</a></li>
+        
+            <li><a class="toctree-l4" href="#adding-to-neo4j-graph-database-for-chemical-occurance-in-pmids">Adding to Neo4J Graph Database for Chemical occurance in PMIDs</a></li>
+        
+            <li><a class="toctree-l4" href="#adding-mesh-descriptors-from-articles-as-mesh-node">Adding MeSH descriptors from Articles as MeSH node</a></li>
+        
+        </ul>
+    
+
+    </ul>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">Instruction</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../../instructions/Query_Python_Elastic/">Querying ElasticSearch in Python</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../instructions/Query_Neo4j_Python/">Querying Neo4J in Python</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">Notes</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../../notes/Databases/">Databases</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../notes/ElasticSearch/">ElasticSearch</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../notes/neo4j/">Neo4J And Cypher</a>
+                </li>
+    </ul>
+	    </li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../..">SamirDocs</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>Implementation &raquo;</li>
+        
+      
+    
+    <li>Creating Drug/Chemical Co-Occurence GraphDB</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="creating-co-occurence-graph-of-drugs-chemicals-pmids">Creating Co-Occurence Graph of Drugs-Chemicals-PMIDs</h1>
+<p>This notebook creates a graph database storing the relation of drugs and 
+chemicals related to oxidative stress and their occurance in PubMed abstracts</p>
+<p>Nodes are created for drugs, chemicals, articles, and MeSH terms.</p>
+<pre class="codehilite"><code class="language-python">import neo4j_functions.driver as neo4j_driver
+import pandas as pd
+import importlib</code></pre>
+
+
+<pre class="codehilite"><code class="language-python">drug_list_df = pd.read_csv('lib/Drug list total 04.05.19   - Overview Drug list.csv')
+drug_occurance_df = pd.read_csv('lib/Drug_PMID_occurances.csv')
+
+chemical_list_df = pd.read_csv('lib/Oxidative Stress Text Mining Targets 4.1 - Summary of Oxidative Stress.csv')
+chemical_occurance_df = pd.read_csv('lib/Chemical_PMID_occurances.csv')</code></pre>
+
+
+<h2 id="merging-drug-list-with-drug-occurance-data-sets">Merging Drug List with Drug Occurance Data Sets</h2>
+<ol>
+<li>Duplicate drug names in the lab provided list are merged, the drug with an associated category is kept if possible</li>
+<li>Deduplicated list of drug names is merged with a dataframe for drug occurance generated on the CaseOLAP cloud instance<ul>
+<li>Notebook used to generate drug occurance list located at <code>/home/ubuntu/RotationStd/elasticsearch/chemical_drug_elastic_occurance.ipynb</code></li>
+</ul>
+</li>
+<li>Final merged dataframe saved in to <code>import</code> folder of neo4j instance</li>
+</ol>
+<pre class="codehilite"><code class="language-python"># Removing Duplicate drug names, keeping version with a drug category if possible
+deduped_drug_list = drug_list_df.sort_values(by='Drug Category').drop_duplicates(subset=['Name'], keep='first')</code></pre>
+
+
+<pre class="codehilite"><code class="language-python"># Merging drug list with drug occurance list
+drug_occurance_df['MeSH'] = drug_occurance_df['MeSH'].str.replace('[', '').str.replace(']', '').str.replace(&quot;'&quot;, '')
+
+drug_list_occurance_df = drug_occurance_df.merge(
+    deduped_drug_list.rename(columns={
+        'Name': 'drug',
+        'Drug Category': 'category',
+        'MeSH Descriptor': 'drug_mesh',
+    }),
+    how='inner',
+    validate='m:1'
+)
+# Values with NaN for category or synonym replaced
+# NaN for synonym replaced with drug name, category replaced with 'None'
+drug_list_occurance_df['drug']  = drug_list_occurance_df['drug'].str.strip()
+drug_list_occurance_df.loc[drug_list_occurance_df.MeSH == '', 'MeSH'] = 'None'
+
+drug_list_occurance_df.loc[drug_list_occurance_df.category.isnull(), 'category']  = 'None'
+drug_list_occurance_df.loc[drug_list_occurance_df.drug_mesh.isnull(), 'drug_mesh']  = 'None'
+drug_list_occurance_df.loc[drug_list_occurance_df.Synonyms.isnull(), 'Synonyms']  = drug_list_occurance_df[drug_list_occurance_df.Synonyms.isnull()].drug</code></pre>
+
+
+<pre class="codehilite"><code class="language-python"># Saving file to import area of local neo4j instance
+drug_list_occurance_file = '/Users/akre96/Library/Application Support/Neo4j Desktop/Application/neo4jDatabases/database-dc2bbd3b-84e9-421e-8594-9fe29be9bb02/installation-3.5.6/import/drug_list_occurance.csv'
+drug_list_occurance_df.to_csv(drug_list_occurance_file, index=False)
+drug_list_occurance_df.head()</code></pre>
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>MeSH</th>
+      <th>PMID</th>
+      <th>abstract</th>
+      <th>title</th>
+      <th>drug</th>
+      <th>category</th>
+      <th>#</th>
+      <th>Synonyms</th>
+      <th>drug_mesh</th>
+      <th>MeSH tree(s)</th>
+      <th>Common adverse effects</th>
+      <th>Dosage (freq/amount/time/delivery)</th>
+      <th>Duration (time)</th>
+      <th>Pham Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>0</td>
+      <td>Actinomycetales, chemistry, enzymology, Adenos...</td>
+      <td>8784428</td>
+      <td>a phosphotransferase which modifies the alpha ...</td>
+      <td>Acarbose 7-phosphotransferase from Actinoplane...</td>
+      <td>Acarbose</td>
+      <td>Alpha-glucosidase Inhibitors</td>
+      <td>54</td>
+      <td>Acarbosa, Acarbose, Acarbosum</td>
+      <td>Acarbose</td>
+      <td>D09.698.629.802.100</td>
+      <td>Hypoglycaemia, Hypoglycaemic \ncoma, pneumatos...</td>
+      <td>3/25-50-100mg/day/po</td>
+      <td>4-8 weeks intervals</td>
+      <td>Glycoside \nHydrolase Inhibitors</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>Acarbose, Adult, Blood Glucose, metabolism, Cl...</td>
+      <td>6350115</td>
+      <td>in a double blind study we have compared the e...</td>
+      <td>Effect of acarbose, pectin, a combination of a...</td>
+      <td>Acarbose</td>
+      <td>Alpha-glucosidase Inhibitors</td>
+      <td>54</td>
+      <td>Acarbosa, Acarbose, Acarbosum</td>
+      <td>Acarbose</td>
+      <td>D09.698.629.802.100</td>
+      <td>Hypoglycaemia, Hypoglycaemic \ncoma, pneumatos...</td>
+      <td>3/25-50-100mg/day/po</td>
+      <td>4-8 weeks intervals</td>
+      <td>Glycoside \nHydrolase Inhibitors</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>Acarbose, Adult, Aged, Blood Glucose, metaboli...</td>
+      <td>9663365</td>
+      <td>acarbose is an alpha glucosidase inhibitor app...</td>
+      <td>Effects of beano on the tolerability and pharm...</td>
+      <td>Acarbose</td>
+      <td>Alpha-glucosidase Inhibitors</td>
+      <td>54</td>
+      <td>Acarbosa, Acarbose, Acarbosum</td>
+      <td>Acarbose</td>
+      <td>D09.698.629.802.100</td>
+      <td>Hypoglycaemia, Hypoglycaemic \ncoma, pneumatos...</td>
+      <td>3/25-50-100mg/day/po</td>
+      <td>4-8 weeks intervals</td>
+      <td>Glycoside \nHydrolase Inhibitors</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>Acarbose, administration &amp; dosage, Animals, Bo...</td>
+      <td>11779583</td>
+      <td>as alpha glucosidase inhibitor, the antidiabet...</td>
+      <td>Chronic acarbose-feeding increases GLUT1 prote...</td>
+      <td>Acarbose</td>
+      <td>Alpha-glucosidase Inhibitors</td>
+      <td>54</td>
+      <td>Acarbosa, Acarbose, Acarbosum</td>
+      <td>Acarbose</td>
+      <td>D09.698.629.802.100</td>
+      <td>Hypoglycaemia, Hypoglycaemic \ncoma, pneumatos...</td>
+      <td>3/25-50-100mg/day/po</td>
+      <td>4-8 weeks intervals</td>
+      <td>Glycoside \nHydrolase Inhibitors</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>Acarbose, Aged, Blood Glucose, metabolism, Dia...</td>
+      <td>9428831</td>
+      <td>to compare the therapeutic potential of acarbo...</td>
+      <td>Efficacy of 24-week monotherapy with acarbose,...</td>
+      <td>Acarbose</td>
+      <td>Alpha-glucosidase Inhibitors</td>
+      <td>54</td>
+      <td>Acarbosa, Acarbose, Acarbosum</td>
+      <td>Acarbose</td>
+      <td>D09.698.629.802.100</td>
+      <td>Hypoglycaemia, Hypoglycaemic \ncoma, pneumatos...</td>
+      <td>3/25-50-100mg/day/po</td>
+      <td>4-8 weeks intervals</td>
+      <td>Glycoside \nHydrolase Inhibitors</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<h2 id="creating-neo4j-graph-database-for-drug-occurance-in-pmids">Creating Neo4J Graph Database for Drug occurance in PMIDs</h2>
+<ol>
+<li>Neo4J Driver initialized</li>
+<li>Query formed to import data from list generated in previous section of this notebook<ul>
+<li>Loading csv</li>
+<li>Creating drug entities with name, category, and synonym fields</li>
+<li>Creating article entities with PMID, abstract, title, and MeSH fields</li>
+<li>Creating edges labeled OCCURANCE for connecting drugs referenced by a PMID</li>
+</ul>
+</li>
+</ol>
+<pre class="codehilite"><code class="language-python">importlib.reload(neo4j_driver)
+driver = neo4j_driver.driver(uri = &quot;bolt://localhost:7687&quot;, user = &quot;neo4j&quot;, password = &quot;drug1234&quot;)</code></pre>
+
+
+<pre class="codehilite"><code class="language-python">import_data_query = (
+    &quot;LOAD CSV WITH HEADERS FROM %s AS row&quot;
+    &quot; MERGE (drug:Drug {name: row.drug, category: row.category, synonyms: row.Synonyms})&quot;
+    &quot; MERGE (article:Article {PMID: row.PMID, abstract: row.abstract, title: row.title, MeSH: split(row.MeSH, %s)})&quot;
+    &quot; MERGE (drug)-[:OCCURANCE]-&gt;(article)&quot;
+    &quot; MERGE (drugmesh:MeSH {name: row.drug_mesh})&quot;
+    &quot; MERGE (drug)-[:OCCURANCE]-&gt;(article)&quot;
+    &quot; MERGE (drug)-[:HAS_MESH]-&gt;(drugmesh)&quot;
+    % ('&quot;file:///' + 'drug_list_occurance.csv' + '&quot;', &quot;', '&quot;)
+)
+print('Query:\n\t', import_data_query)
+with driver.driver.session() as session:
+    result = session.run(import_data_query)</code></pre>
+
+
+<pre class="codehilite"><code>Query:
+     LOAD CSV WITH HEADERS FROM &quot;file:///drug_list_occurance.csv&quot; AS row MERGE (drug:Drug {name: row.drug, category: row.category, synonyms: row.Synonyms}) MERGE (article:Article {PMID: row.PMID, abstract: row.abstract, title: row.title, MeSH: split(row.MeSH, ', ')}) MERGE (drug)-[:OCCURANCE]-&gt;(article) MERGE (drugmesh:MeSH {name: row.drug_mesh}) MERGE (drug)-[:OCCURANCE]-&gt;(article) MERGE (drug)-[:HAS_MESH]-&gt;(drugmesh)</code></pre>
+
+
+<h2 id="merging-chemical-list-with-chemical-occurance-data-sets">Merging Chemical List with Chemical Occurance Data Sets</h2>
+<pre class="codehilite"><code class="language-python">deduped_chem_list = chemical_list_df\
+    .dropna(subset=['Molecule/Enzyme/Protein'])\
+    .sort_values(by='Molecular and Functional Categories')\
+    .drop_duplicates(subset=['Molecule/Enzyme/Protein'], keep='first')\
+    .fillna('None')</code></pre>
+
+
+<pre class="codehilite"><code class="language-python">chemical_occurance_df['MeSH'] = chemical_occurance_df['MeSH'].str.replace('[', '').str.replace(']', '').str.replace(&quot;'&quot;, '')
+chem_list_occurance_df = chemical_occurance_df.merge(
+    deduped_chem_list.rename(columns={
+        'Molecule/Enzyme/Protein': 'chemical',
+        'Chemical Formula': 'formula',
+        'Molecular and Functional Categories': 'GO_MF',
+        'Biological Events of Oxidative Stress': 'GO_Oxidative_Stress',
+        'MeSH Heading': 'chemical_mesh'
+    }),
+    how='inner',
+    validate='m:1'
+).fillna('None')
+chem_list_occurance_df['chemical'] = chem_list_occurance_df.chemical.str.strip()
+chem_list_occurance_df.loc[chem_list_occurance_df.MeSH == '', 'MeSH'] = 'None'
+chem_list_occurance_df.head()</code></pre>
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>MeSH</th>
+      <th>PMID</th>
+      <th>abstract</th>
+      <th>title</th>
+      <th>chemical</th>
+      <th>GO_Oxidative_Stress</th>
+      <th>GO_MF</th>
+      <th>chemical_mesh</th>
+      <th>MeSH Supplementary</th>
+      <th>MeSH tree numbers</th>
+      <th>formula</th>
+      <th>Examples</th>
+      <th>Pharm Actions</th>
+      <th>Tree Numbers</th>
+      <th>References</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>0</td>
+      <td>None</td>
+      <td>31368101</td>
+      <td>coronary spasm plays an important role in the ...</td>
+      <td>Association of East Asian Variant Aldehyde Deh...</td>
+      <td>4-hydroxy-2-nonenal (4-HNE)</td>
+      <td>135</td>
+      <td>Lipid Peroxidation Products</td>
+      <td>Aldehydes</td>
+      <td>4-hydroxy-2-nonenal</td>
+      <td>D02.047</td>
+      <td>C9H16O2</td>
+      <td>4-HNE, MDA</td>
+      <td>Cross-Linking Reagents</td>
+      <td>D27.720.470.410.210</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>Acetylcholinesterase, metabolism, Aldehydes, m...</td>
+      <td>10463393</td>
+      <td>we have investigated the effect of soman induc...</td>
+      <td>Increased levels of nitrogen oxides and lipid ...</td>
+      <td>4-hydroxy-2-nonenal (4-HNE)</td>
+      <td>135</td>
+      <td>Lipid Peroxidation Products</td>
+      <td>Aldehydes</td>
+      <td>4-hydroxy-2-nonenal</td>
+      <td>D02.047</td>
+      <td>C9H16O2</td>
+      <td>4-HNE, MDA</td>
+      <td>Cross-Linking Reagents</td>
+      <td>D27.720.470.410.210</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>Aldehydes, chemistry, Amines, chemistry, Benzy...</td>
+      <td>8448343</td>
+      <td>the reaction of trans 4 hydroxy 2 nonenal (4 h...</td>
+      <td>Pyrrole formation from 4-hydroxynonenal and pr...</td>
+      <td>4-hydroxy-2-nonenal (4-HNE)</td>
+      <td>135</td>
+      <td>Lipid Peroxidation Products</td>
+      <td>Aldehydes</td>
+      <td>4-hydroxy-2-nonenal</td>
+      <td>D02.047</td>
+      <td>C9H16O2</td>
+      <td>4-HNE, MDA</td>
+      <td>Cross-Linking Reagents</td>
+      <td>D27.720.470.410.210</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>Animals, Blood-Brain Barrier, metabolism, path...</td>
+      <td>29775963</td>
+      <td>brain ischemic preconditioning (ipc) with mild...</td>
+      <td>Brain ischemic preconditioning protects agains...</td>
+      <td>4-hydroxy-2-nonenal (4-HNE)</td>
+      <td>135</td>
+      <td>Lipid Peroxidation Products</td>
+      <td>Aldehydes</td>
+      <td>4-hydroxy-2-nonenal</td>
+      <td>D02.047</td>
+      <td>C9H16O2</td>
+      <td>4-HNE, MDA</td>
+      <td>Cross-Linking Reagents</td>
+      <td>D27.720.470.410.210</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>Alzheimer Disease, drug therapy, enzymology, p...</td>
+      <td>30218858</td>
+      <td>excessive production of amyloid β (aβ) induced...</td>
+      <td>Neuro-protective effects of aloperine in an Al...</td>
+      <td>4-hydroxy-2-nonenal (4-HNE)</td>
+      <td>135</td>
+      <td>Lipid Peroxidation Products</td>
+      <td>Aldehydes</td>
+      <td>4-hydroxy-2-nonenal</td>
+      <td>D02.047</td>
+      <td>C9H16O2</td>
+      <td>4-HNE, MDA</td>
+      <td>Cross-Linking Reagents</td>
+      <td>D27.720.470.410.210</td>
+      <td>None</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<pre class="codehilite"><code class="language-python"># Saving file to import area of local neo4j instance
+chem_list_occurance_file = '/Users/akre96/Library/Application Support/Neo4j Desktop/Application/neo4jDatabases/database-dc2bbd3b-84e9-421e-8594-9fe29be9bb02/installation-3.5.6/import/chem_list_occurance.csv'
+chem_list_occurance_df.to_csv(chem_list_occurance_file, index=False)</code></pre>
+
+
+<h2 id="adding-to-neo4j-graph-database-for-chemical-occurance-in-pmids">Adding to Neo4J Graph Database for Chemical occurance in PMIDs</h2>
+<ol>
+<li>Query formed to import data from list generated in previous section of this notebook<ul>
+<li>Loading csv</li>
+<li>Creating chemical entities with name, example, and formula fields</li>
+<li>Merges article entities with PMID, abstract, title, and MeSH fields</li>
+<li>Creating edges labeled OCCURANCE for connecting drugs referenced by a PMID</li>
+</ul>
+</li>
+</ol>
+<pre class="codehilite"><code class="language-python">import_chemical_data_query = (
+    &quot;LOAD CSV WITH HEADERS FROM %s AS row&quot;
+    &quot; MERGE (chem:Chemical {name: row.chemical, example: row.Examples, formula: row.formula})&quot;
+    &quot; MERGE (article:Article {PMID: row.PMID, abstract: row.abstract, title: row.title, MeSH: split(row.MeSH, %s)})&quot;
+    &quot; MERGE (mesh:MeSH {name: row.chemical_mesh})&quot;
+    &quot; MERGE (chem)-[:OCCURANCE]-&gt;(article)&quot;
+    &quot; MERGE (chem)-[:HAS_MESH]-&gt;(mesh)&quot;
+    % ('&quot;file:///' + 'chem_list_occurance.csv' + '&quot;', &quot;', '&quot;)
+
+)
+print('Query:\n\t', import_chemical_data_query)
+with driver.driver.session() as session:
+    result = session.run(import_chemical_data_query)</code></pre>
+
+
+<pre class="codehilite"><code>Query:
+     LOAD CSV WITH HEADERS FROM &quot;file:///chem_list_occurance.csv&quot; AS row MERGE (chem:Chemical {name: row.chemical, example: row.Examples, formula: row.formula}) MERGE (article:Article {PMID: row.PMID, abstract: row.abstract, title: row.title, MeSH: split(row.MeSH, ', ')}) MERGE (mesh:MeSH {name: row.chemical_mesh}) MERGE (chem)-[:OCCURANCE]-&gt;(article) MERGE (chem)-[:HAS_MESH]-&gt;(mesh)</code></pre>
+
+
+<h2 id="adding-mesh-descriptors-from-articles-as-mesh-node">Adding MeSH descriptors from Articles as MeSH node</h2>
+<ol>
+<li>Adds nodes from mesh descriptor list</li>
+<li>Deletes "none" node</li>
+</ol>
+<pre class="codehilite"><code class="language-python">article_mesh_descriptors_query = (
+    &quot;MATCH (article:Article)&quot;
+    &quot; UNWIND article.MeSH AS m&quot;
+    &quot; MERGE (artMesh:MeSH {name: m})&quot;
+    &quot; MERGE (article)-[:HAS_MESH]-&gt;(artMesh)&quot;
+)
+print('Query:\n\t', article_mesh_descriptors_query)
+with driver.driver.session() as session:
+    result = session.run(article_mesh_descriptors_query)</code></pre>
+
+
+<pre class="codehilite"><code>Query:
+     MATCH (article:Article) UNWIND article.MeSH AS m MERGE (artMesh:MeSH {name: m}) MERGE (article)-[:HAS_MESH]-&gt;(artMesh)</code></pre>
+
+
+<pre class="codehilite"><code class="language-python">delete_none_mesh_descriptors_query = (
+    &quot;MATCH (m:MeSH {name: 'None'})&quot;
+    &quot; DETACH DELETE m&quot;
+)
+print('Query:\n\t', delete_none_mesh_descriptors_query)
+with driver.driver.session() as session:
+    result = session.run(delete_none_mesh_descriptors_query)</code></pre>
+
+
+<pre class="codehilite"><code>Query:
+     MATCH (m:MeSH {name: 'None'}) DETACH DELETE m</code></pre>
+
+
+<pre class="codehilite"><code class="language-python"></code></pre>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../../instructions/Query_Python_Elastic/" class="btn btn-neutral float-right" title="Querying ElasticSearch in Python">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../Explore_Drug_chemical_OxStress/Explore_Drug_chemical_OxStress/" class="btn btn-neutral" title="Finding Common Pathways Used by Drugs"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../Explore_Drug_chemical_OxStress/Explore_Drug_chemical_OxStress/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../../instructions/Query_Python_Elastic/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '../..';</script>
+    <script src="../../js/theme.js" defer></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML" defer></script>
+      <script src="../../search/main.js" defer></script>
+
+</body>
+</html>

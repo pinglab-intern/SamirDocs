@@ -122,7 +122,8 @@ Summary:
     * I.E. MutSalpha has highest activity or potential for activity during DNA replication (between G1 and G2)
 * Defects in MSH2, MSH6, MLH1, and PMS2 cause hereditary nonpolyposis colorectal cancer (HNPCC, also known as Lynch syndrome)
 
-Mismatch repair (MMR) directed by MSH2:MSH6 (MutSalpha): R-HSA-5358565.1
+#### Mismatch repair (MMR) directed by MSH2:MSH6 (MutSalpha): R-HSA-5358565.1
+
 * Single base mismatches and unpaired loops of 1-2 nucleotides
 * Is about 6-fold more abundant than MSH2:MSH3 (MutSbeta) in humans
     * Imbalance of this ratio can cause mutator phenotype
@@ -133,7 +134,8 @@ Mismatch repair (MMR) directed by MSH2:MSH6 (MutSalpha): R-HSA-5358565.1
         * EXO1: enlarges gap to hundreds of nucleotides
 * DNA polymerase delta polymerizes across gap, and remaining nick is sealed by DNA ligase I LIG1
 
-Mismatch repair (MMR) directed by MSH2:MSH3 (MutSbeta): R-HSA-5358606.1
+#### Mismatch repair (MMR) directed by MSH2:MSH3 (MutSbeta): R-HSA-5358606.1
+
 * Binds unpaired loops of 2 or more nucleotides
 * 6x lower in concentration than alpha
 * Similar information as for MutSalpha
@@ -141,6 +143,7 @@ Mismatch repair (MMR) directed by MSH2:MSH3 (MutSbeta): R-HSA-5358606.1
 
 ### Nucleotide Excision Repair (NER): R-HSA-5696398.2
 Tree:
+
 * Nucleotide Excision Repair (NER)
     * Global Genome Nucleotide Excision Repair (GG-NER)
         * DNA Damage Recognition in GG-NER
@@ -153,6 +156,7 @@ Tree:
         * Gap-filling DNA repair synthesis and ligation in TC-NER
         
 NER Overview
+
 * First described in E.coli ~1960 as the process whereby bulky base damage is enzymatically removed from DNA facilitating the recovery of DNA synthesis and cell survival 
 * Deficient NER processes linked to increased mutation rate and cancer
 * Unique in prokaryotes but highly conserved in yeast and higher eukaryotes
@@ -170,8 +174,9 @@ NER Overview
 * Mouse models used to establish relation of NER defects and cancer
 * Suggested review: Lindahl and Wood 1998, Friedberg et al. 2002, Christmann et al. 2003, Hanawalt and Spivak 2008, Marteijn et al. 2014
 
-Global Genome Nucleotide Excision Repair (GG-NER): R-HSA-5696399.1
+#### Global Genome Nucleotide Excision Repair (GG-NER): R-HSA-5696399.1
 Steps:
+
 * DNA recognition seen as joint action of two protein complexes
     * First complex (XPC Complex): XPC, RAD23A or RAD23B, CETN2
     * UV-DDB complex: ubiquitin ligase composed of DDB1, CUL4A or CUL4B, RBX1, and GG-NER specific protein DDB2
@@ -182,19 +187,22 @@ Steps:
 * DNA poly delta, epsilon, and/or kappa perform DNA repair synthesis
 * DNA ligated
 
-DNA Damage Recognition in GG-NER: R-HSA-5696394.1
+#### DNA Damage Recognition in GG-NER: R-HSA-5696394.1
+
 * First complex of XPC, RAD23A/RAD23B and CETN2: Probes DNA helix and recognizes disruption in normal Watson-Crick base pairing
     * Results in binding of the XPC:RAD23:CETN2 complex to undamaged DNA strand
 * Second Complex UV-DDB is necessary for recognition of UV-induced DNA damage and may contribute to retention of first complex
     * Binds the damaged DNA strand
 
-Dual Incision in GG-NER: R-HSA-5696400.1
+#### Dual Incision in GG-NER: R-HSA-5696400.1
+
 * Dual incision at the damaged DNA strand excises the oligonucleotide that contains the lesion from the open bible.
     * Excised region is ~27-30 bases long
 * 5’ incision by ERCC1:ERCC4 endonuclease
 *  3’ incision by ERCC5 endonuclease
 
-Formation of Incision Complex in GG-NER: R-HSA-5696395.1
+#### Formation of Incision Complex in GG-NER: R-HSA-5696395.1
+
 * After XPC complex and UV-DDB complex bind damaged DNA, a basal transcription factor TFIIH is recruited to the NER site
 * DNA helicases ERCC2 (XPD) and ERCC3 (XPB) are subunits of TFIIH complex
     * ERCC2 unwinds the DNA around the damage in concert with ATPase activity of ERCC3
@@ -203,12 +211,14 @@ Formation of Incision Complex in GG-NER: R-HSA-5696395.1
     * Recruitment of XPA is partially regulated by PARP1 and PARP2
 * During excision by ERCC1:ERCC4 and ERCC5, RPA heterotrimer coats the undamaged na strand to protect it from endonucleolytic attack
 
-Gap-filling DNA repair synthesis and ligation in GG-NER: R-HSA-5696397.1
+#### Gap-filling DNA repair synthesis and ligation in GG-NER: R-HSA-5696397.1
+
 * GG-NER completed by DNA repair synthesis that fills the single stranded gap created after excision
     * Performed by DNA polymerase epsilon or delta or the “Y family DNA polymerase kappa” (POLK) 
 * LIG1 or LIg3 (as part of LIG3:XRCC1 complex) ligate newly synthesized stretch of oligonucleotides
 
-Transcription-Coupled Nucleotide Excision Repair (TC-NER): R-HSA-6781827.1
+#### Transcription-Coupled Nucleotide Excision Repair (TC-NER): R-HSA-6781827.1
+
 * Damage in transcribed strands of active genes repaired through Transcription-coupled NER
     * Impairment in TC-NER is underlying cause of severe hereditary disorder Cockayne syndrome and an autosomal recessive disease characterized by hypersensitivity to UV light
 * Triggered by helix distorting lesions that block the progression of elongating RNA polymerase II (RNA Pol II)
@@ -233,6 +243,7 @@ Transcription-Coupled Nucleotide Excision Repair (TC-NER): R-HSA-6781827.1
 Tree
 
 Base Excision Repair (BER)
+
 * Base-Excision Repair, AP Site Formation
     * Depurination
         * Cleavage of the damaged purine
@@ -251,6 +262,7 @@ Base Excision Repair (BER)
         * Abasic sugar-phosphate removal via the single-nucleotide replacement pathway
 
 Overview
+
 * BER involves the greatest number of individual enzymatic activities of the 3 primary repair pathways
     * Due to numerous individual glycosylases, each of which recognizes and removes a specific modified base(s) from DNA
 * Repairs the most prevalent types of DNA lesions, oxidatively damaged DNA bases, which arise as a consequence of:
@@ -263,32 +275,38 @@ Overview
 * May occur by either a single nucleotide replacement pathway or a multiple-nucleotide patch replacement pathway depending on structure of terminal sugar phosphate residue
 * Glycosylases found in human cells recognize “foreign adducts” and not standard functional modifications such as DNA methylation
 
-Base-Excision Repair, AP Site Formation: R-HSA-73929.2
+#### Base-Excision Repair, AP Site Formation: R-HSA-73929.2
+
 * Initiation of BER is done by DNA glycosylases hydrolytic ally cleaving the base-deoxyribose glycosly bond of a damaged nucleotide residue releasing the damaged base
 * Glycosylase cleaves the N-C1’ glycosidic bond between damaged DNA base and deoxyribose sugar generating a free base and an abasic(e.g apurinic/apyramidic site)
 
-Depurination: R-HSA-73927.1
+#### Depurination: R-HSA-73927.1
 * Purine-specific DNA glycosylase mediates this type of removal
 * Glycosylase Proteins involved:
     * NEIL1, NEIL3, NTHL1, OGG1, MUTYH, MPG
 
-Cleavage of the damaged purine: R-HSA-110331.2
+#### Cleavage of the damaged purine: R-HSA-110331.2
+
 * Damaged purines are cleaved from the sugar-phosphate backbone by purine-specific glycosylases
 
-Recognition and association of DNA glycosylase with site containing an affected purine: R-HSA-110330.3
+#### Recognition and association of DNA glycosylase with site containing an affected purine: R-HSA-110330.3
+
 * Recognition and removal is thought to involve diffusion of the enzyme along the minor grove of the DNA molecule
     * Enzyme presumable compresses the backbone of the affected DNA strand at the site of damage
     * Compression thought to result in outward rotation of damaged residue into a “pocket” of the enzyme that recognizes and cleaves the altered base from the backbone
 
-Depyrimidination: R-HSA-73928.1
+#### Depyrimidination: R-HSA-73928.1
+
 * Same as above but with pyrimidines
 * Glycosylases involved:
     * MBD4, SMUG1, TDG, UNG-1, NEIL2
 
-NEIL3-mediated resolution of ICLs: R-HSA-9636003.1
+#### NEIL3-mediated resolution of ICLs: R-HSA-9636003.1
+
 * DNA Glycosylase activity of NEIL3 involved in unhooking (resolution) of psolaren-induced inter stand crosslinks (ICLs) as well as basic site-induced ICLs in a Fanconia anemia pathway-independent fashion
 
-Resolution of Abasic Sites (AP sites): R-HSA-73933.1
+#### Resolution of Abasic Sites (AP sites): R-HSA-73933.1
+
 * Resolution occurs through multiple nucleotide patch replacement pathway or single nucleotide replacement
 * Single and multiple-nucleotide patch replacement are both initiated by APEX1-mediated displacement of DNA glycosylases and cleavage of the damaged DNA strand by APEX immediately 5’ to the AP site.
     * Not true for APEX-1independent resolution of AP sites via single nucleotide BER via NEIL1 or NEIL2
@@ -300,10 +318,12 @@ Resolution of Abasic Sites (AP sites): R-HSA-73933.1
     * In the presence of PCNA, RPA, RFC, APEX1, FEN1, and LIG1
 * 9-1-1 repair complex of HUS1, RAD1, and RAD9 interacts with and coordinates components of BER but mechanism/timing unknown
 
-Displacement of DNA glycosylase by APEX1: R-HSA-110357.1
+#### Displacement of DNA glycosylase by APEX1: R-HSA-110357.1
+
 * Following cleavage of the damaged base, DNA glycosylase is displaced by APEX1 an AP endonuclease
 
-Resolution of AP sites via the single-nucleotide replacement pathway: R-HSA-110381.1
+#### Resolution of AP sites via the single-nucleotide replacement pathway: R-HSA-110381.1
+
 * Facilitates repair of most damaged bases
 * APEX1 is recruited to site of damage where it cleaves 5’ side of the basic (AP) residue. [SUB PATHWAY: R-HSA-73930.]
 * DNA polymerase Beta (POLB) then cleaves the 3’ side of AP sugar phosphate excising the AP residue
@@ -312,7 +332,8 @@ Resolution of AP sites via the single-nucleotide replacement pathway: R-HSA-1103
     * POLB mediates synthesis of the replacement residue and LIG3 ligation
 * XRCC1:LIG3 complex dissociates from DNA
 
-Resolution of AP sites via the multiple-nucleotide patch replacement pathway: R-HSA-110373.1
+#### Resolution of AP sites via the multiple-nucleotide patch replacement pathway: R-HSA-110373.1
+
 * Used when POLB cannot cleave 3’ side due to nature of 5’-terminal sugar phosphate structure
 * In this scenario, short stretch of residues containing the basic site is excised and replaced
 * Following Glycosylaze mediated cleavage of damaged base, APEX1 cleaves 5’ side of basic residue
@@ -324,7 +345,8 @@ Resolution of AP sites via the multiple-nucleotide patch replacement pathway: R-
 * Replacement residues are then ligated by LIG1
 * TODO: Both downstream nodes of this one (POLB and PCNA dependent replacement) 
 
-APEX1-Independent Resolution of AP Sites via the Single Nucleotide Replacement Pathway: R-HSA-5649702.1
+#### APEX1-Independent Resolution of AP Sites via the Single Nucleotide Replacement Pathway: R-HSA-5649702.1
+
 * NEIL1 and NEIL2 have a dual DNA glycosylase and beta/delta lyase activity.
     * The AP site directed activity of NEIL1 and 2 is their major physiological role
     * They act on AP sites generated spontaneously or by other glycosylases

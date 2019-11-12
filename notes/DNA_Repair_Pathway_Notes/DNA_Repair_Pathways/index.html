@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  <link rel="shortcut icon" href="../../../img/favicon.ico">
+  <title>DNA Repair Pathways - SamirDocs</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../../../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "DNA Repair Pathways";
+    var mkdocs_page_input_path = "notes/DNA_Repair_Pathway_Notes/DNA_Repair_Pathways.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../../../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../../../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href="../../.." class="icon icon-home"> SamirDocs</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+	  
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../../..">Home</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">Implementation</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../../../implementation/chemical_drug_elastic_occurance/chemical_drug_elastic_occurance/">Querying ElasticSearch for Drug/Chemical Occurrence</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../../implementation/Explore_Drug_chemical_OxStress/Explore_Drug_chemical_OxStress/">Finding Common Pathways Used by Drugs</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../../implementation/Create_Drug_Cooccurance_Graph/">Creating Drug/Chemical Co-Occurence GraphDB</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">Instruction</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../../../instructions/Query_Python_Elastic/">Querying ElasticSearch in Python</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../../instructions/Query_Neo4j_Python/">Querying Neo4J in Python</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">Notes</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../../Databases/">Databases</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../ElasticSearch/">ElasticSearch</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../neo4j/">Neo4J And Cypher</a>
+                </li>
+                <li class=" current">
+                    
+    <a class="current" href="./">DNA Repair Pathways</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l3"><a href="#dna-repair-pathway">DNA Repair Pathway</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l4" href="#khan-academy-medicine-notes">Khan Academy Medicine Notes</a></li>
+        
+            <li><a class="toctree-l4" href="#reactome-pathway-visualizer">Reactome Pathway Visualizer</a></li>
+        
+        </ul>
+    
+
+    </ul>
+                </li>
+    </ul>
+	    </li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../..">SamirDocs</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>Notes &raquo;</li>
+        
+      
+    
+    <li>DNA Repair Pathways</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="dna-repair-pathway">DNA Repair Pathway</h1>
+<h2 id="khan-academy-medicine-notes">Khan Academy Medicine Notes</h2>
+<h3 id="dna-repair-1-khanacademymedicine"><a href="https://www.youtube.com/watch?v=o4yJF90OR9M">DNA Repair 1- khanacademymedicine</a></h3>
+<ul>
+<li>Pyrimidines: Thymine/Cytosine - single ring structure (6 sided)</li>
+<li>Purines: Adenine/Guanine - two rings (6 + 5 sides)</li>
+<li>DNA polymerase III can recognize errors and repair them from end of DNA strand its synthesizing<ul>
+<li>Exonuclease activity: removing nucleotide at END of a DNA strand<ul>
+<li>For DNAP III it is 3’-5’ specifically</li>
+</ul>
+</li>
+<li>DNA Pol I has exonuclease activity in the 5’-3’ direction<ul>
+<li>Is used normally to turn RNA primer of DNA synthesis in to DNA </li>
+</ul>
+</li>
+<li>Repair capabilities of DNAP I and III turn error rate from 1 in 100k, to 1 in 100 million</li>
+</ul>
+</li>
+</ul>
+<p>Mismatch repair mechanism: 
+1. One end marked with a cut
+2. Exonuclease removes one side of mismatch
+3. DNA polymerase adds correct basepair in
+4. DNA ligases fix cut
+* Methylation used to distinguish which strand is correct in prokaryotes
+* Mechanism unknown in eukaryotes</p>
+<h3 id="dna-repair-2-khanacademymedicine"><a href="https://www.youtube.com/watch?v=PySVsEUnrng">DNA Repair 2- khanacademymedicine</a></h3>
+<ul>
+<li>
+<p>UV light can damage DNA via creation of pyrimidine dimers</p>
+<ul>
+<li>Thymine-Thymine or Cytosine-Cytosine:
+<img alt="DNA UV light damage" src="../UV_light_damage.jpg" /></li>
+</ul>
+</li>
+<li>
+<p>DNA Damage ≠ DNA Mutation</p>
+<ul>
+<li>Damage (like in UV light) Structure is altered, but sequence is the same</li>
+</ul>
+</li>
+</ul>
+<p>Nucleotide Excision Repair: Fixes DNA damage
+* Endonuclease: Cuts out structurally aberrant nucleotides
+* DNA polymerase re-adds correct nucleotides
+* DNA Ligase fixes backbone and connects new nucleotides to appropriate base</p>
+<p>Summary:
+<img alt="DNA Damage Summary" src="../Khan_Acadamy_DNA_repair.jpg" /></p>
+<h2 id="reactome-pathway-visualizer">Reactome Pathway Visualizer</h2>
+<h3 id="dna-repair-node-r-hsa-738943">DNA Repair Node: R-HSA-73894.3</h3>
+<ul>
+<li>Specific mechanisms of repair depend on cell type, cell cycle, and cellular environment<ul>
+<li>Utilization of low fidelity “last resort” mechanisms associated with senescence, aging, and cancer</li>
+</ul>
+</li>
+<li>Germline mutations in dna repair genes are underlying causes of many familial cancer syndromes</li>
+<li>When level of DNA damage exceeds DNA repair mechanism capacity, cell undergoes apoptosis <ul>
+<li>Actively dividing cells have limited time available for DNA repair, making them sensitive to DNA damaging agents</li>
+</ul>
+</li>
+<li>Several primary pathways of human DNA repair. They are intimately associated with DNA replication, recombination, cell cycle, and apoptosis<ul>
+<li>DNA damage bypass<ul>
+<li>Does not remove damage, but allows trans-lesion DNA synthesis (TLS) using a damaged template strand. TLS allows cells to complete DNA replication postponing repair until cell division finishes.</li>
+<li>DNA polymerases utilized are error-prone, frequently introducing base substitutions and/or small insertions and deletions</li>
+</ul>
+</li>
+<li>DNA damage reversal<ul>
+<li>Acts on a very narrow spectrum of damaging base modifications to remove modifying groups and restore bases to original state</li>
+</ul>
+</li>
+<li>Base excision repair (BER)<ul>
+<li>Involves several DNA glycosylases that cleave a vast array of damaged bases from the DNA sugar-phosphate backbone</li>
+<li>Glycosylases create an abasic site that is then processed by endonuclease, polymerases, and ligases.<ul>
+<li>Choice of processing depends on cell cycle stage, glycosylase identity, and presence of additional damage</li>
+</ul>
+</li>
+<li>Yields error free DNA molecules</li>
+</ul>
+</li>
+<li>Nucleotide excision repair (NER)<ul>
+<li>Removes bulky lesions that cause distortion of the DNA double helix</li>
+<li>Excise oligonucleotide that contains the lesion from affected DNA strand<ul>
+<li>Followed by gap filling DNA synthesis and ligation of repaired molecule</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Mismatch repair (MMR)<ul>
+<li>MMR proteins recognize mismatched BPs or small indel loops during DNA replication and correct erroneous pairing by excising mismatched nucleotides exclusively from nascent DNA strand leaving template in tact</li>
+</ul>
+</li>
+<li>Repair of double strand breaks (DSBs)<ul>
+<li>Can be repaired very accurately with homologous recombination repair (HRR) </li>
+<li>Other error prone pathways to repair include: <ul>
+<li>non homologous end joining (NHEJ)</li>
+<li>Single Strand annealing (SSA)</li>
+<li>Microhomology-mediated end joining (MMEJ)</li>
+</ul>
+</li>
+<li>DSBs generated through DNA damaging agents like X-rays or Reactive oxygen species (ROS) <ul>
+<li>Are also intermediates of the Fanconi Anemia pathway</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Repair of interstrand crosslinks (Fanconi anemia pathway)<ul>
+<li>Inter-stand cross-linking (ICL) agents damage DNA by introducing covalent bonds between two DNA strands, this prevents progression of a DNA replication fork</li>
+<li>Fanconi anemia proteins repair ICLs by unhooking them from on DNA strand. TLS enables replication fork to bypass unhooked ICL resulting in two replicated DNA molecules<ul>
+<li>One contains a DSB and triggers double strand break repair</li>
+<li>One contains bulky unhooked ICL that is removed using NER</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Suggested review: Lindahl and Wood 1999 and Curtin 2012</li>
+</ul>
+<h3 id="fanconi-anemia-fa-pathway-r-hsa-67833102">Fanconi Anemia (FA) Pathway: R-HSA-6783310.2</h3>
+<ul>
+<li>FA is a genetic disease of genome instability characterized by congenital skeletal defects, aplastic anemia, leukemia susceptibility, cellular sensitivity to DNA damaging events<ul>
+<li>15 complementation groups (FA-A, -B, -C, -D1, -D2, -E, -F, -G, -I, -J, -L, -M, -N, -O and -P)</li>
+<li>Groups correspond to the genes: FANCA, FANCB, FANCC, FANCD1/BRCA2, FANCD2, FANCE, FANCF, FANCG, FANCJ/BRIP1, FANCL, FANCM, FANCN/PALB2, FANCO/RAD51C and FANCP/SLX4<ul>
+<li>Eight of these proteins, FANCA, FANCB, FANCC, FANCE, FANCF, FANCG, FANCL, and FANCM, together with FAAP24, FAAP100, FAAP20, APITD1 and STRA13 Create nuclear complex termed FA Core Complex<ul>
+<li>E3 ubiquitin ligase that recognizes and is activated by ICLs</li>
+<li>Triggers mono-ubiquitination of FANCD2 and FANCI which initiates repair of ICL-DNA<ul>
+<li>FANCD2 and FANCI form a complex and are mutually dependent on one another for their respective monoubiquitination</li>
+</ul>
+</li>
+<li>After DNA damage and during S phase, FANCD2 localizes to discrete nuclear foci that colocalize with proteins involved in homologous recombination repair like BRCA1 and RAD51</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>FA Regulated by ubiquitination/phosphorilation of FANCD2 and FANCI<ul>
+<li>ATR-dependent phosphorylation of FANCI and FANCD2 promotes monoubiquitination of FANCD2 stimulating FA pathway</li>
+</ul>
+</li>
+<li>Monoubiquitinated FANCD2 recruits DNA nucleases including SLX4(FANCP) and FAN1 which unhook the ICL from one of the covalently linked DNA strands</li>
+<li>DNA polymerase nu (POLN) performs translation DNA synthesis using the DNA strand with the unhooked ICL as a template to bypass the unhooked ICL<ul>
+<li>NER then removes the unhooked ICL</li>
+</ul>
+</li>
+<li>Incision of stalled replication fork during the unhooking step generates a DSB repaired via HRR involving BRCA2 (FANCD1), PALB2 (FANCN), and BRIP1(FANCJ)<ul>
+<li>Homozygous mutations in BRCA2, PALB2, or BRIP1 result in FA</li>
+<li>Heterozygous mutations predispose carriers to breast and ovarian cancer</li>
+<li>These proteins role in DNA repair is BRCA1 dependent</li>
+<li>Heterozygous BRCA1 mutations predispose to breast and ovarian cancer with high penetance<ul>
+<li>Loss of BRCA1 is embryonic lethal</li>
+<li>Partial gremlin loss of BRCA1 function results in FA-like syndrome —&gt; BRCA1 designated FANCS gene</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>monoubiquitination: addition of a single ubiquitin peptide to the lysine of a protein</li>
+</ul>
+<h3 id="mismatch-repair-mmr-r-hsa-53585081">Mismatch Repair (MMR): R-HSA-5358508.1</h3>
+<ul>
+<li>Corrects single base mismatches and small insertion and deletion loops (IDLs) of unpaired bases. <ul>
+<li>Highly conserved across prokaryotes and eukaryotes</li>
+<li>Primarily associated with DNA replication</li>
+</ul>
+</li>
+<li>Basic Steps:<ol>
+<li>A sensor (MutS homologue) detects mismatch or IDL </li>
+<li>Activates a set of proteins (MutL homologue and an exonuclease) to select, nick,  and exonucleolytically remove region of nucleotides from the nascent strand</li>
+<li>DNA polymerase resynthesizes the strand</li>
+<li>Ligase seals the remaining nick</li>
+</ol>
+</li>
+<li>Humans have two MutS complexes<ol>
+<li>MSH2:MSH6 heterodimer (MutSalpha) : Recognizes single base mismatches and loops of one or two unpaired bases</li>
+<li>MSH2:MSH3 heterodimer (MutSbeta) : Recognizes loops of two or more unpaired bases</li>
+</ol>
+</li>
+<li>Upon binding mismatch, MutS complex activates in an ATP-dependent manner allowing for interactions and movement on DNA substrate<ul>
+<li>Interacts with MLH1:PMS2 and Exonuclease 1 (EXO1) to initiate excision of the recently replicated strand and direct DNA polymerase delta to initiate replacement of bases.<ul>
+<li>MLH1:PMS2 makes an incision in the strand to be repaired</li>
+<li>EXO1 extends the incision to make a single stranded gap of up to 1kb that removes the mismatched bases<ul>
+<li>In some assays it has been found the EXO1 is not necessary, not sure why. Most of the time it is necessary</li>
+</ul>
+</li>
+<li>Replication Protein A (RPA) binds the single stranded region to prevent rewinding of DNA and allows DNA polymerase delta to synthesize new strand</li>
+<li>Nick sealed by DNA Ligase I (LIG1)</li>
+</ul>
+</li>
+<li>Order of steps and structural details not fully known</li>
+</ul>
+</li>
+<li>Concentrations of MMR proteins MSH2:MSH6 and MLH1:PMS2 increase in human cells during the S phase where they are at highest level and activity<ul>
+<li>I.E. MutSalpha has highest activity or potential for activity during DNA replication (between G1 and G2)</li>
+</ul>
+</li>
+<li>Defects in MSH2, MSH6, MLH1, and PMS2 cause hereditary nonpolyposis colorectal cancer (HNPCC, also known as Lynch syndrome)</li>
+</ul>
+<h4 id="mismatch-repair-mmr-directed-by-msh2msh6-mutsalpha-r-hsa-53585651">Mismatch repair (MMR) directed by MSH2:MSH6 (MutSalpha): R-HSA-5358565.1</h4>
+<ul>
+<li>Single base mismatches and unpaired loops of 1-2 nucleotides</li>
+<li>Is about 6-fold more abundant than MSH2:MSH3 (MutSbeta) in humans<ul>
+<li>Imbalance of this ratio can cause mutator phenotype</li>
+</ul>
+</li>
+<li>MSH6 subunit binds the mismatch which triggers the MSH2:MSH6 complex to exchange ADP to ATP<ul>
+<li>Conformation changes to allow movement on DNA and interact with downstream effectors<ul>
+<li>PCNA: Initiates excision of the recently replicated strand</li>
+<li>MLH1:PMS2: endonucleolytic activity to make nick</li>
+<li>EXO1: enlarges gap to hundreds of nucleotides</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>DNA polymerase delta polymerizes across gap, and remaining nick is sealed by DNA ligase I LIG1</li>
+</ul>
+<h4 id="mismatch-repair-mmr-directed-by-msh2msh3-mutsbeta-r-hsa-53586061">Mismatch repair (MMR) directed by MSH2:MSH3 (MutSbeta): R-HSA-5358606.1</h4>
+<ul>
+<li>Binds unpaired loops of 2 or more nucleotides</li>
+<li>6x lower in concentration than alpha</li>
+<li>Similar information as for MutSalpha<ul>
+<li>Key differences: MSH3 NOT specified to be the subunit that binds </li>
+</ul>
+</li>
+</ul>
+<h3 id="nucleotide-excision-repair-ner-r-hsa-56963982">Nucleotide Excision Repair (NER): R-HSA-5696398.2</h3>
+<p>Tree:</p>
+<ul>
+<li>Nucleotide Excision Repair (NER)<ul>
+<li>Global Genome Nucleotide Excision Repair (GG-NER)<ul>
+<li>DNA Damage Recognition in GG-NER</li>
+<li>Dual incision in GG-NER</li>
+<li>Formation of Incision Complex in GG-NER</li>
+<li>Gap-filling DNA repair synthesis and ligation in GG-NER</li>
+</ul>
+</li>
+<li>Transcription-Coupled Nucleotide Excision Repair (TC-NER)<ul>
+<li>Dual incision in TC-NER</li>
+<li>Formation of TC-NER Pre-Incision Complex</li>
+<li>Gap-filling DNA repair synthesis and ligation in TC-NER</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>NER Overview</p>
+<ul>
+<li>First described in E.coli ~1960 as the process whereby bulky base damage is enzymatically removed from DNA facilitating the recovery of DNA synthesis and cell survival </li>
+<li>Deficient NER processes linked to increased mutation rate and cancer</li>
+<li>Unique in prokaryotes but highly conserved in yeast and higher eukaryotes</li>
+<li>NER involved in repair of bulky adducts in DNA<ul>
+<li>UV-induced photo lesions<ul>
+<li>6-4 photoproducts (6-4 PDDS)</li>
+<li>Cyclobutane pyrimidine dimers (CPDs)</li>
+</ul>
+</li>
+<li>Chemical adducts formed from exposure to aflatoxin, benzopyrene and other genotoxic agents</li>
+</ul>
+</li>
+<li>Two primary pathways: differ in method that DNA damage is initially recognized. Mostly same downstream<ol>
+<li>Global Genome Nucleotide Excision Repair (GG-NER): transcription-independent and removes lesions from coding and non-coding DNA strands that are not being actively transcribed</li>
+<li>Transcription-coupled nucleotide excision repair (TC-NER): repairs damage in transcribed strands of active genes</li>
+</ol>
+</li>
+<li>Several proteins involved in NER are key to basal transcription complex TFIIH. <ul>
+<li>An ubiquitin ligase complex composed of DDB1, CUL4A or CUL4B and RBX1 participates in both GG and TC NER<ul>
+<li>Suggests important role of ubiquitination in NER regulation</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Mouse models used to establish relation of NER defects and cancer</li>
+<li>Suggested review: Lindahl and Wood 1998, Friedberg et al. 2002, Christmann et al. 2003, Hanawalt and Spivak 2008, Marteijn et al. 2014</li>
+</ul>
+<h4 id="global-genome-nucleotide-excision-repair-gg-ner-r-hsa-56963991">Global Genome Nucleotide Excision Repair (GG-NER): R-HSA-5696399.1</h4>
+<p>Steps:</p>
+<ul>
+<li>DNA recognition seen as joint action of two protein complexes<ul>
+<li>First complex (XPC Complex): XPC, RAD23A or RAD23B, CETN2</li>
+<li>UV-DDB complex: ubiquitin ligase composed of DDB1, CUL4A or CUL4B, RBX1, and GG-NER specific protein DDB2<ul>
+<li>In-vitro only necessary for GG-NER mediated repair of UV-induced pyrimidine dimers</li>
+<li>In vivo, where DNA repair occurs in chromatin context, likely facilitates GG-NER mediated repair irrespective of DNA damage type</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>After damage recognition, TFIIH complex with XPA verifies damage, unwinds helix around damage thereby creating an open bubble</li>
+<li>Two endonuclease ERCC5 (XPG) and comely of ERCC1 and ERCC4 (XPF) excise oligonucleotide that contains damaged base(s)</li>
+<li>DNA poly delta, epsilon, and/or kappa perform DNA repair synthesis</li>
+<li>DNA ligated</li>
+</ul>
+<h4 id="dna-damage-recognition-in-gg-ner-r-hsa-56963941">DNA Damage Recognition in GG-NER: R-HSA-5696394.1</h4>
+<ul>
+<li>First complex of XPC, RAD23A/RAD23B and CETN2: Probes DNA helix and recognizes disruption in normal Watson-Crick base pairing<ul>
+<li>Results in binding of the XPC:RAD23:CETN2 complex to undamaged DNA strand</li>
+</ul>
+</li>
+<li>Second Complex UV-DDB is necessary for recognition of UV-induced DNA damage and may contribute to retention of first complex<ul>
+<li>Binds the damaged DNA strand</li>
+</ul>
+</li>
+</ul>
+<h4 id="dual-incision-in-gg-ner-r-hsa-56964001">Dual Incision in GG-NER: R-HSA-5696400.1</h4>
+<ul>
+<li>Dual incision at the damaged DNA strand excises the oligonucleotide that contains the lesion from the open bible.<ul>
+<li>Excised region is ~27-30 bases long</li>
+</ul>
+</li>
+<li>5’ incision by ERCC1:ERCC4 endonuclease</li>
+<li>3’ incision by ERCC5 endonuclease</li>
+</ul>
+<h4 id="formation-of-incision-complex-in-gg-ner-r-hsa-56963951">Formation of Incision Complex in GG-NER: R-HSA-5696395.1</h4>
+<ul>
+<li>After XPC complex and UV-DDB complex bind damaged DNA, a basal transcription factor TFIIH is recruited to the NER site</li>
+<li>DNA helicases ERCC2 (XPD) and ERCC3 (XPB) are subunits of TFIIH complex<ul>
+<li>ERCC2 unwinds the DNA around the damage in concert with ATPase activity of ERCC3</li>
+<li>Creates open bubble</li>
+</ul>
+</li>
+<li>Simultaneously presence of the damage is verified by XPA<ul>
+<li>Recruitment of XPA is partially regulated by PARP1 and PARP2</li>
+</ul>
+</li>
+<li>During excision by ERCC1:ERCC4 and ERCC5, RPA heterotrimer coats the undamaged na strand to protect it from endonucleolytic attack</li>
+</ul>
+<h4 id="gap-filling-dna-repair-synthesis-and-ligation-in-gg-ner-r-hsa-56963971">Gap-filling DNA repair synthesis and ligation in GG-NER: R-HSA-5696397.1</h4>
+<ul>
+<li>GG-NER completed by DNA repair synthesis that fills the single stranded gap created after excision<ul>
+<li>Performed by DNA polymerase epsilon or delta or the “Y family DNA polymerase kappa” (POLK) </li>
+</ul>
+</li>
+<li>LIG1 or LIg3 (as part of LIG3:XRCC1 complex) ligate newly synthesized stretch of oligonucleotides</li>
+</ul>
+<h4 id="transcription-coupled-nucleotide-excision-repair-tc-ner-r-hsa-67818271">Transcription-Coupled Nucleotide Excision Repair (TC-NER): R-HSA-6781827.1</h4>
+<ul>
+<li>Damage in transcribed strands of active genes repaired through Transcription-coupled NER<ul>
+<li>Impairment in TC-NER is underlying cause of severe hereditary disorder Cockayne syndrome and an autosomal recessive disease characterized by hypersensitivity to UV light</li>
+</ul>
+</li>
+<li>Triggered by helix distorting lesions that block the progression of elongating RNA polymerase II (RNA Pol II)<ul>
+<li>Stalled RNA Pol II complex triggers recruitment of ERCC6 (or CSB Cockayne Syndrome Protein B) which recruits ERCC8 (Cockayne syndrome protein A or CSA)<ul>
+<li>ERC88 has 7 WD repeat motifs (forms a ring of triangles) and is part of ubiquitin ligase complex that includes DDB1 CUL4A or CUL4B and RBX1<ul>
+<li>SIMILAR in structure to UVDDB from GG-NER but lacks DDB2</li>
+<li>Key regulator of TC-NER that may exert role by ubiquitinating one or more factors involved in repair like RNA pol II and ERCC6</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>TFIIH (transcription elongation factor) recruited to TC-NER site</li>
+<li>Pre-incision complex includes XPA, XAB2 complex, TCEA1 (TFIIS), HMGN1, UVSSA in complex with USP7, and EP300(p300).<ul>
+<li>XPA probably contributes to assembly and stability of complex as it does in GG-NER</li>
+<li>XAB2 is involved in pre-mRNA splicing and may modulate structure of nascent mRNA hybrid with template DNA through its RNA-DNA helicase activity</li>
+<li>TCEA1 may be involved in RNA Pol II backtracking, allows repair proteins to gain access to the damage site<ul>
+<li>Also facilitates trimming of the 3’ end of protruding nascent mRNA from stalled RNA Pol II, enabling recovery of RNA synthesis after repair</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>De-ubiquitinating activity of UVSSA:USP7 complex needed for ERCC6 stability at repair site.<ul>
+<li>Non histone nucleosomal binding protein HMGN1 and histone acetyltransferase p300(EP300) remodels chromatin around the damaged site</li>
+</ul>
+</li>
+<li>Dual incision of the lesion-containing oligonucleotide from the affected DNA strand is performed by same molecules as in GG-NER (ERCC1:ERCC4 and ERCC5)<ul>
+<li>Same repair process with DNA Pol delta, epsilon, or kappa followed by DNA ligases LIG1 or LIG3:XRCC1</li>
+</ul>
+</li>
+<li>After damage repair done, RNA synthesis continues by RNA Pol II</li>
+</ul>
+<h3 id="base-excision-repair-ber-r-hsa-738842">Base Excision Repair (BER): R-HSA-73884.2</h3>
+<p>Tree</p>
+<p>Base Excision Repair (BER)</p>
+<ul>
+<li>Base-Excision Repair, AP Site Formation<ul>
+<li>Depurination<ul>
+<li>Cleavage of the damaged purine</li>
+<li>Recognition and association of DNA glycosylase with site containing an affected purine</li>
+</ul>
+</li>
+<li>Depyrimidination<ul>
+<li>Cleavage of the damaged pyrimidine</li>
+<li>Recognition and association of DNA glycosylase with site containing an affected pyrimidine</li>
+</ul>
+</li>
+<li>NEIL3-mediated resolution of ICLs</li>
+</ul>
+</li>
+<li>Resolution of Abasic Sites (AP sites)<ul>
+<li>APEX1-Independent Resolution of AP Sites via the Single Nucleotide Replacement Pathway</li>
+<li>Displacement of DNA glycosylase by APEX1</li>
+<li>Resolution of AP sites via the multiple-nucleotide patch replacement pathway<ul>
+<li>PCNA-Dependent Long Patch Base Excision Repair</li>
+<li>POLB-Dependent Long Patch Base Excision Repair</li>
+</ul>
+</li>
+<li>Resolution of AP sites via the single-nucleotide replacement pathway<ul>
+<li>Abasic sugar-phosphate removal via the single-nucleotide replacement pathway</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>Overview</p>
+<ul>
+<li>BER involves the greatest number of individual enzymatic activities of the 3 primary repair pathways<ul>
+<li>Due to numerous individual glycosylases, each of which recognizes and removes a specific modified base(s) from DNA</li>
+</ul>
+</li>
+<li>Repairs the most prevalent types of DNA lesions, oxidatively damaged DNA bases, which arise as a consequence of:<ul>
+<li>reactive oxygen species generated by normal mitochondrial metabolism</li>
+<li>Oxidative free radicals from ionizing radiation</li>
+<li>Lipid per oxidation or activated phagocytic cells</li>
+</ul>
+</li>
+<li>BER is a two step process initiated by a DNA glycosylase that recognizes a specific base modification<ul>
+<li>Base is removed through catalytic cleavage of glycosydic bond, leaving an basic site without disruption of phosphate-sugar backbone</li>
+<li>Abasic sites are resolved by a series of enzymes that cleave backbone, insert replacement, ligate DNA</li>
+</ul>
+</li>
+<li>May occur by either a single nucleotide replacement pathway or a multiple-nucleotide patch replacement pathway depending on structure of terminal sugar phosphate residue</li>
+<li>Glycosylases found in human cells recognize “foreign adducts” and not standard functional modifications such as DNA methylation</li>
+</ul>
+<h4 id="base-excision-repair-ap-site-formation-r-hsa-739292">Base-Excision Repair, AP Site Formation: R-HSA-73929.2</h4>
+<ul>
+<li>Initiation of BER is done by DNA glycosylases hydrolytic ally cleaving the base-deoxyribose glycosly bond of a damaged nucleotide residue releasing the damaged base</li>
+<li>Glycosylase cleaves the N-C1’ glycosidic bond between damaged DNA base and deoxyribose sugar generating a free base and an abasic(e.g apurinic/apyramidic site)</li>
+</ul>
+<h4 id="depurination-r-hsa-739271">Depurination: R-HSA-73927.1</h4>
+<ul>
+<li>Purine-specific DNA glycosylase mediates this type of removal</li>
+<li>Glycosylase Proteins involved:<ul>
+<li>NEIL1, NEIL3, NTHL1, OGG1, MUTYH, MPG</li>
+</ul>
+</li>
+</ul>
+<h4 id="cleavage-of-the-damaged-purine-r-hsa-1103312">Cleavage of the damaged purine: R-HSA-110331.2</h4>
+<ul>
+<li>Damaged purines are cleaved from the sugar-phosphate backbone by purine-specific glycosylases</li>
+</ul>
+<h4 id="recognition-and-association-of-dna-glycosylase-with-site-containing-an-affected-purine-r-hsa-1103303">Recognition and association of DNA glycosylase with site containing an affected purine: R-HSA-110330.3</h4>
+<ul>
+<li>Recognition and removal is thought to involve diffusion of the enzyme along the minor grove of the DNA molecule<ul>
+<li>Enzyme presumable compresses the backbone of the affected DNA strand at the site of damage</li>
+<li>Compression thought to result in outward rotation of damaged residue into a “pocket” of the enzyme that recognizes and cleaves the altered base from the backbone</li>
+</ul>
+</li>
+</ul>
+<h4 id="depyrimidination-r-hsa-739281">Depyrimidination: R-HSA-73928.1</h4>
+<ul>
+<li>Same as above but with pyrimidines</li>
+<li>Glycosylases involved:<ul>
+<li>MBD4, SMUG1, TDG, UNG-1, NEIL2</li>
+</ul>
+</li>
+</ul>
+<h4 id="neil3-mediated-resolution-of-icls-r-hsa-96360031">NEIL3-mediated resolution of ICLs: R-HSA-9636003.1</h4>
+<ul>
+<li>DNA Glycosylase activity of NEIL3 involved in unhooking (resolution) of psolaren-induced inter stand crosslinks (ICLs) as well as basic site-induced ICLs in a Fanconia anemia pathway-independent fashion</li>
+</ul>
+<h4 id="resolution-of-abasic-sites-ap-sites-r-hsa-739331">Resolution of Abasic Sites (AP sites): R-HSA-73933.1</h4>
+<ul>
+<li>Resolution occurs through multiple nucleotide patch replacement pathway or single nucleotide replacement</li>
+<li>Single and multiple-nucleotide patch replacement are both initiated by APEX1-mediated displacement of DNA glycosylases and cleavage of the damaged DNA strand by APEX immediately 5’ to the AP site.<ul>
+<li>Not true for APEX-1independent resolution of AP sites via single nucleotide BER via NEIL1 or NEIL2</li>
+</ul>
+</li>
+<li>Single NR when the AP residue at the 5’ end of the APEX1-created single stranded break (SSB) (5’dRP) can be removed by the 5’ exonuclease activity of DNA polymerase beta (POLB)<ul>
+<li>POLB fills the single nucleotide gap by adding a complementary nucleotide to the undamaged DNA strand at the 3’ end of the SSB</li>
+</ul>
+</li>
+<li>Patch replacement pathway when AP residue at the 5’ end of APEX1-created SSB undergoes oxidation related damage (5’ddRP) and cannot be cleaved by POLB</li>
+<li>Long patch BER can be completed by POLB-mediated DNA strand displacement synthesis in presence of PARP1 or PARP2, FEN1, and DNA Ligase I</li>
+<li>When PCNA-containing replication complex is available, as with cells in S-phase, DNA strand displacement synthesis is catalyzed by DNA polymerase delta (POLD) or DNA polymerase epsilon (POLE) complezes<ul>
+<li>In the presence of PCNA, RPA, RFC, APEX1, FEN1, and LIG1</li>
+</ul>
+</li>
+<li>9-1-1 repair complex of HUS1, RAD1, and RAD9 interacts with and coordinates components of BER but mechanism/timing unknown</li>
+</ul>
+<h4 id="displacement-of-dna-glycosylase-by-apex1-r-hsa-1103571">Displacement of DNA glycosylase by APEX1: R-HSA-110357.1</h4>
+<ul>
+<li>Following cleavage of the damaged base, DNA glycosylase is displaced by APEX1 an AP endonuclease</li>
+</ul>
+<h4 id="resolution-of-ap-sites-via-the-single-nucleotide-replacement-pathway-r-hsa-1103811">Resolution of AP sites via the single-nucleotide replacement pathway: R-HSA-110381.1</h4>
+<ul>
+<li>Facilitates repair of most damaged bases</li>
+<li>APEX1 is recruited to site of damage where it cleaves 5’ side of the basic (AP) residue. [SUB PATHWAY: R-HSA-73930.]</li>
+<li>DNA polymerase Beta (POLB) then cleaves the 3’ side of AP sugar phosphate excising the AP residue<ul>
+<li>Alternate pathway used if this not possible due to oxidative damage of 5’ side</li>
+</ul>
+</li>
+<li>APEX1 is released and XRCC1:LIG3 complex recruited<ul>
+<li>POLB mediates synthesis of the replacement residue and LIG3 ligation</li>
+</ul>
+</li>
+<li>XRCC1:LIG3 complex dissociates from DNA</li>
+</ul>
+<h4 id="resolution-of-ap-sites-via-the-multiple-nucleotide-patch-replacement-pathway-r-hsa-1103731">Resolution of AP sites via the multiple-nucleotide patch replacement pathway: R-HSA-110373.1</h4>
+<ul>
+<li>Used when POLB cannot cleave 3’ side due to nature of 5’-terminal sugar phosphate structure</li>
+<li>In this scenario, short stretch of residues containing the basic site is excised and replaced</li>
+<li>Following Glycosylaze mediated cleavage of damaged base, APEX1 cleaves 5’ side of basic residue<ul>
+<li>POLB then synthesizes the firs replacement residue without prior cleavage of the 5’-terminal sugar phosphate, displacing this entitiy</li>
+</ul>
+</li>
+<li>Can be continued by POLB-mediated DNA strand displacement synthesis in presence of PARP1 or PARP2, FEN1, and DINA Ligase 1</li>
+<li>If PCNA-containing replication complex available (as during S-phase), displacement synthesis catalyzed by POLD or POLE complexes<ul>
+<li>Occurs in presence of PCNA, RPA, RFC, APEX1, FEN1, and LIG1</li>
+</ul>
+</li>
+<li>In both POLB and PCNA dependent displacement synthesis displaced DNA strand with basic phosphate creates a flap structure that is recognized and cleaved by FEN1.</li>
+<li>Replacement residues are then ligated by LIG1</li>
+<li>TODO: Both downstream nodes of this one (POLB and PCNA dependent replacement) </li>
+</ul>
+<h4 id="apex1-independent-resolution-of-ap-sites-via-the-single-nucleotide-replacement-pathway-r-hsa-56497021">APEX1-Independent Resolution of AP Sites via the Single Nucleotide Replacement Pathway: R-HSA-5649702.1</h4>
+<ul>
+<li>NEIL1 and NEIL2 have a dual DNA glycosylase and beta/delta lyase activity.<ul>
+<li>The AP site directed activity of NEIL1 and 2 is their major physiological role</li>
+<li>They act on AP sites generated spontaneously or by other glycosylases</li>
+</ul>
+</li>
+<li>Cleaves the damaged DNA strand at the 5’ AP site created a 3’ phosphate terminus (3’Pi) and a (5’dRP)</li>
+<li>POLB excises 5’dRP residue but is unable to add replacement nucleotide with the 3’Pi end<ul>
+<li>PNKP, a DNA 3’phosphatase removes 3’Pi and enables POLB to incorporate replacement nucleotide</li>
+<li>Ligation done by XRCC1:LIG3 complex</li>
+</ul>
+</li>
+</ul>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="../../neo4j/" class="btn btn-neutral" title="Neo4J And Cypher"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../../neo4j/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+    </span>
+</div>
+    <script>var base_url = '../../..';</script>
+    <script src="../../../js/theme.js" defer></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML" defer></script>
+      <script src="../../../search/main.js" defer></script>
+
+</body>
+</html>

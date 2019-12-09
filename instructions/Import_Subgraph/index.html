@@ -8,7 +8,7 @@
   
   
   <link rel="shortcut icon" href="../../img/favicon.ico">
-  <title>ElasticSearch - SamirDocs</title>
+  <title>Import GraphML Subgraph to Neo4J in Python - SamirDocs</title>
   <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
 
   <link rel="stylesheet" href="../../css/theme.css" type="text/css" />
@@ -17,8 +17,8 @@
   
   <script>
     // Current page data
-    var mkdocs_page_name = "ElasticSearch";
-    var mkdocs_page_input_path = "notes/ElasticSearch.md";
+    var mkdocs_page_name = "Import GraphML Subgraph to Neo4J in Python";
+    var mkdocs_page_input_path = "instructions/Import_Subgraph.md";
     var mkdocs_page_url = null;
   </script>
   
@@ -86,19 +86,25 @@
     <ul class="subnav">
                 <li class="">
                     
-    <a class="" href="../../instructions/Query_Python_Elastic/">Querying ElasticSearch in Python</a>
+    <a class="" href="../Query_Python_Elastic/">Querying ElasticSearch in Python</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../../instructions/Query_Neo4j_Python/">Querying Neo4J in Python</a>
+    <a class="" href="../Query_Neo4j_Python/">Querying Neo4J in Python</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../../instructions/Export_Subgraph/">Export Neo4J Subgraph in Python</a>
+    <a class="" href="../Export_Subgraph/">Export Neo4J Subgraph in Python</a>
                 </li>
-                <li class="">
+                <li class=" current">
                     
-    <a class="" href="../../instructions/Import_Subgraph/">Import GraphML Subgraph to Neo4J in Python</a>
+    <a class="current" href="./">Import GraphML Subgraph to Neo4J in Python</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l3"><a href="#create-a-subgraph-from-exports-made-on-the-reactome-graph-database">Create a subgraph from exports made on the Reactome graph Database</a></li>
+    
+
+    </ul>
                 </li>
     </ul>
 	    </li>
@@ -109,33 +115,19 @@
     <ul class="subnav">
                 <li class="">
                     
-    <a class="" href="../Databases/">Databases</a>
-                </li>
-                <li class=" current">
-                    
-    <a class="current" href="./">ElasticSearch</a>
-    <ul class="subnav">
-            
-    <li class="toctree-l3"><a href="#elasticsearch">ElasticSearch</a></li>
-    
-        <ul>
-        
-            <li><a class="toctree-l4" href="#searching-elastic-search-for-articles-that-reference-drugs-and-chemicals-related-to-oxidative-stress">Searching Elastic Search for Articles that reference Drugs and Chemicals related to oxidative stress</a></li>
-        
-            <li><a class="toctree-l4" href="#udemy-course-notes">Udemy Course Notes</a></li>
-        
-        </ul>
-    
-
-    </ul>
+    <a class="" href="../../notes/Databases/">Databases</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../neo4j/">Neo4J And Cypher</a>
+    <a class="" href="../../notes/ElasticSearch/">ElasticSearch</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../DNA_Repair_Pathway_Notes/DNA_Repair_Pathways/">DNA Repair Pathways</a>
+    <a class="" href="../../notes/neo4j/">Neo4J And Cypher</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../notes/DNA_Repair_Pathway_Notes/DNA_Repair_Pathways/">DNA Repair Pathways</a>
                 </li>
     </ul>
 	    </li>
@@ -162,11 +154,11 @@
     
       
         
-          <li>Notes &raquo;</li>
+          <li>Instruction &raquo;</li>
         
       
     
-    <li>ElasticSearch</li>
+    <li>Import GraphML Subgraph to Neo4J in Python</li>
     <li class="wy-breadcrumbs-aside">
       
     </li>
@@ -176,50 +168,40 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="elasticsearch">ElasticSearch</h1>
-<h2 id="searching-elastic-search-for-articles-that-reference-drugs-and-chemicals-related-to-oxidative-stress">Searching Elastic Search for Articles that reference Drugs and Chemicals related to oxidative stress</h2>
-<p><img alt="Chemical Drug Co-occurrence Clustermap" src="../assets/chemical_drug_occurance_clustermap.png" title="Chemical Drug Co-occurrence Clustermap" />
-- Searched pubmed data for co-occurrence of a drug and chemical name in the abstract of a paper
-- Created list of documents each drug/chemical occurs in for later use</p>
-<h2 id="udemy-course-notes">Udemy Course Notes</h2>
-<h3 id="section-2-architecture-of-elastic-search">Section 2: Architecture of Elastic Search</h3>
+                <h1 id="create-a-subgraph-from-exports-made-on-the-reactome-graph-database">Create a subgraph from exports made on the Reactome graph Database</h1>
 <ul>
-<li>5 shards per node default</li>
-<li>Collection of nodes called a cluster<ul>
-<li>Rename cluster since nodes default to entering a cluster named elasticsearch default</li>
+<li>This section relies on having exported a subgraph of all desired drugs to a file called <code>all_drugs.graphml</code></li>
+<li>File is created in the <code>Export_Subgraph.ipynb</code></li>
+<li>Manually must move the file from the reactome graphdb to the import folder of a new graphdb</li>
 </ul>
-</li>
-<li>Default 1 replica per shard<ul>
-<li>Primary shard written to first, then replicas updated</li>
-<li>Reading occurs on any shard in a replicate group</li>
-</ul>
-</li>
-<li>Coordinating Node is the first node a client pings with a search query<ul>
-<li>May not be node with shard containing results</li>
-<li>May not always be the same node</li>
-<li>Returns result query after pinging all shards in cluster</li>
-</ul>
-</li>
-<li>Can specify how routing occurs<ul>
-<li>Custom routing i.e sending documents to a node/shards based on country of origin</li>
-</ul>
-</li>
-<li>The number of shards cannot change after creating an index<ul>
-<li>Elastic cloud is 14day free trial for starting with elastic search and Kibana for ease of use</li>
-</ul>
-</li>
-</ul>
-<h3 id="section-3-installing-es-and-kibana">Section 3: Installing ES and Kibana</h3>
-<p>Running default elastic search cluster:<br />
-<code>~/Tools/elasticsearch-7.3.2/bin/elasticsearch</code></p>
-<p>To ping cluster:<br />
-<code>curl http://localhost:9200</code></p>
-<ul>
-<li>Change config file cluster name (config/elasticsearch.yml)</li>
-</ul>
-<p>Running Kibana in default:<br />
-<code>~/Tools/kibana-7.3.2-darwin-x86_64/bin/kibana</code>
-* Requires live elastic search cluster</p>
+<p><strong>Note:</strong> Must have started running a new empty neo4j graph database to succesfully connect</p>
+<pre class="codehilite"><code class="language-python">import neo4j_functions.driver as neo4j_driver
+import pandas as pd
+import importlib
+import progressbar
+import os</code></pre>
+
+
+<pre class="codehilite"><code class="language-python"># Connect to new empty local database
+driver = neo4j_driver.driver(uri = &quot;bolt://localhost:7687&quot;, user = &quot;neo4j&quot;, password = &quot;subgraph1234&quot;)</code></pre>
+
+
+<p>If you encounter the error <code>java.lang.OutOfMemoryError: Java heap space</code> try going in to the neo4j.conf file and removing/commenting out the lines:</p>
+<pre class="codehilite"><code>dbms.memory.heap.initial_size=512m
+dbms.memory.heap.max_size=1G</code></pre>
+
+
+<pre class="codehilite"><code class="language-python">query = (
+&quot;&quot;&quot;
+CALL apoc.import.graphml('file:/all_drugs.graphml', {readLabels:true, storeNodeIds:true});
+&quot;&quot;&quot;)
+driver.run_query(query)</code></pre>
+
+
+<pre class="codehilite"><code>&lt;neo4j.BoltStatementResult at 0x11e2dfb38&gt;</code></pre>
+
+
+<pre class="codehilite"><code class="language-python"></code></pre>
               
             </div>
           </div>
@@ -227,10 +209,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../neo4j/" class="btn btn-neutral float-right" title="Neo4J And Cypher">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../../notes/Databases/" class="btn btn-neutral float-right" title="Databases">Next <span class="icon icon-circle-arrow-right"></span></a>
       
       
-        <a href="../Databases/" class="btn btn-neutral" title="Databases"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../Export_Subgraph/" class="btn btn-neutral" title="Export Neo4J Subgraph in Python"><span class="icon icon-circle-arrow-left"></span> Previous</a>
       
     </div>
   
@@ -256,10 +238,10 @@
     <span class="rst-current-version" data-toggle="rst-current-version">
       
       
-        <span><a href="../Databases/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+        <span><a href="../Export_Subgraph/" style="color: #fcfcfc;">&laquo; Previous</a></span>
       
       
-        <span style="margin-left: 15px"><a href="../neo4j/" style="color: #fcfcfc">Next &raquo;</a></span>
+        <span style="margin-left: 15px"><a href="../../notes/Databases/" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div>

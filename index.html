@@ -57,13 +57,9 @@
     
         <ul>
         
-            <li><a class="toctree-l3" href="#introduction">Introduction</a></li>
-        
             <li><a class="toctree-l3" href="#tools">Tools</a></li>
         
             <li><a class="toctree-l3" href="#methods">Methods</a></li>
-        
-            <li><a class="toctree-l3" href="#results">Results</a></li>
         
         </ul>
     
@@ -78,6 +74,14 @@
                 <li class="">
                     
     <a class="" href="implementation/chemical_drug_elastic_occurance/chemical_drug_elastic_occurance/">Querying ElasticSearch for Drug/Chemical Occurrence</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="implementation/Occurrence_Count_Plots/Occurrence_Count_Plots/">Visualizing Distribution of Data in Pubmed</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="implementation/create_oxidative_stress_categories/create_oxidative_stress_categories/">Generating Final Inputs for CaseOLAP</a>
                 </li>
                 <li class="">
                     
@@ -101,6 +105,14 @@
                 <li class="">
                     
     <a class="" href="instructions/Query_Neo4j_Python/">Querying Neo4J in Python</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="instructions/Export_Subgraph/">Export Neo4J Subgraph in Python</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="instructions/Import_Subgraph/">Import GraphML Subgraph to Neo4J in Python</a>
                 </li>
     </ul>
 	    </li>
@@ -162,14 +174,19 @@
               
                 <h1 id="ping-lab-rotation-project">Ping Lab Rotation Project</h1>
 <p><strong>Developing Knowledge Graphs relating Cardiovascular Disease and Oxidative Stress</strong><br />
-Google Slides detailing project progress can be found <a href="https://docs.google.com/presentation/d/1SRtV6SeVtLP1rhzIBDuZsPswsoOePkdwmKwb0dfSBhk/edit#slide=id.p">here</a></p>
-<h2 id="introduction">Introduction</h2>
+This work was presented at the December 6th BioText Mining Meeting. Slides from that presentation can be found <a href="https://docs.google.com/presentation/d/1CTD2HrC2xMbVBLcdXfollsNP2hz-VCiCZNz4MbV3-a4/edit?usp=sharing">here</a></p>
 <h2 id="tools">Tools</h2>
 <p><strong>caseOLAP</strong>: A novel text-mining platform to find strenght of relation between entities in two categories through searching of PubMed ID abstracts.<br />
 <strong>Neo4j</strong>: A popular graph database implementation used to represent the knowledge graph<br />
 <strong>ElasticSearch</strong>: A powerful search engine allowing full text searches</p>
 <h2 id="methods">Methods</h2>
-<h2 id="results">Results</h2>
+<p><img alt="Methods Overview" src="methods.png" /></p>
+<p>We began this project by manually curating 161 Cardiovascular disease drugs, and 223 Markers of Oxidative Stress (These markers are often referred to as Chemicals inside this documentation). </p>
+<p>With those lists in mind, we downloading the full dataset of available pubmed abstracts, and indexed them and associated metadata using elasticsearch. This allows us to then search for terms within pubmed and where they occur. We specifically looked
+for occurrences of the drugs and markers within PubMed. </p>
+<p>The markers of oxidative stress are binned in to 3 categories: Initiation, Regulation, and Outcomes of oxidative stress. 
+To quantify the relationship between drugs and markers, caseOLAP was run using their occurrences within PubMed. The result is a table where each drug has a caseOLAP for each of the 3 categories of oxidative stress markers. </p>
+<p>The final step was to map Drugs to pathways/mechanisms of action. We used the graphical database of Reactome to do this linkage. A drug can then be categorised by the reaction its involved in and the pathway that reaction is a piece of.</p>
               
             </div>
           </div>
@@ -219,5 +236,5 @@ Google Slides detailing project progress can be found <a href="https://docs.goog
 
 <!--
 MkDocs version : 1.0.4
-Build Date UTC : 2019-11-12 21:53:40
+Build Date UTC : 2019-12-09 22:37:28
 -->

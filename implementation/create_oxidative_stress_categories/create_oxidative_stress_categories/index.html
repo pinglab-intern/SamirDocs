@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  <link rel="shortcut icon" href="../../../img/favicon.ico">
+  <title>Generating Final Inputs for CaseOLAP - SamirDocs</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../../../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Generating Final Inputs for CaseOLAP";
+    var mkdocs_page_input_path = "implementation/create_oxidative_stress_categories/create_oxidative_stress_categories.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../../../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../../../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href="../../.." class="icon icon-home"> SamirDocs</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+	  
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../../..">Home</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">Implementation</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../../chemical_drug_elastic_occurance/chemical_drug_elastic_occurance/">Querying ElasticSearch for Drug/Chemical Occurrence</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../Occurrence_Count_Plots/Occurrence_Count_Plots/">Visualizing Distribution of Data in Pubmed</a>
+                </li>
+                <li class=" current">
+                    
+    <a class="current" href="./">Generating Final Inputs for CaseOLAP</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l3"><a href="#creating-caseolap-inputs-by-linking-occurrences-of-drugs-and-markers-of-oxidative-stress">Creating CaseOLAP Inputs by linking occurrences of Drugs and Markers of Oxidative Stress</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l4" href="#importing-oxidative-stress-chemical-pmid-occurrences">Importing oxidative stress chemical PMID occurrences</a></li>
+        
+            <li><a class="toctree-l4" href="#finding-drug-occurrences-for-each-oxidative-stress-category">Finding drug occurrences for each oxidative stress category</a></li>
+        
+            <li><a class="toctree-l4" href="#creating-inputs-to-caseolap-pipeline">Creating inputs to caseOLAP pipeline</a></li>
+        
+        </ul>
+    
+
+    </ul>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../Explore_Drug_chemical_OxStress/Explore_Drug_chemical_OxStress/">Finding Common Pathways Used by Drugs</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../Create_Drug_Cooccurance_Graph/">Creating Drug/Chemical Co-Occurence GraphDB</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">Instruction</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../../../instructions/Query_Python_Elastic/">Querying ElasticSearch in Python</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../../instructions/Query_Neo4j_Python/">Querying Neo4J in Python</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../../instructions/Export_Subgraph/">Export Neo4J Subgraph in Python</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../../instructions/Import_Subgraph/">Import GraphML Subgraph to Neo4J in Python</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">Notes</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../../../notes/Databases/">Databases</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../../notes/ElasticSearch/">ElasticSearch</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../../notes/neo4j/">Neo4J And Cypher</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../../notes/DNA_Repair_Pathway_Notes/DNA_Repair_Pathways/">DNA Repair Pathways</a>
+                </li>
+    </ul>
+	    </li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../..">SamirDocs</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>Implementation &raquo;</li>
+        
+      
+    
+    <li>Generating Final Inputs for CaseOLAP</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="creating-caseolap-inputs-by-linking-occurrences-of-drugs-and-markers-of-oxidative-stress">Creating CaseOLAP Inputs by linking occurrences of Drugs and Markers of Oxidative Stress</h1>
+<p>This file creates two outputs: <code>output/metadata_pmid2count.json</code> and <code>output/metadata_pmid2count.json</code> which are used as the inputs for running the final score calculation in caseOLAP. </p>
+<pre class="codehilite"><code class="language-python">from elasticsearch import Elasticsearch
+from elasticsearch_dsl import Search, Q
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+import json</code></pre>
+
+
+<h2 id="importing-oxidative-stress-chemical-pmid-occurrences">Importing oxidative stress chemical PMID occurrences</h2>
+<ul>
+<li>PMID occurrence list generated in <code>chemical_drug_elastic_occurance.ipynb</code></li>
+</ul>
+<pre class="codehilite"><code class="language-python">ox_cat_df = pd.read_csv('output/Chemical_PMID_occurances.csv')
+print(ox_cat_df.shape)
+ox_cat_df.head()</code></pre>
+
+
+<pre class="codehilite"><code>(3291433, 5)</code></pre>
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Article MeSH</th>
+      <th>PMID</th>
+      <th>category</th>
+      <th>chemical</th>
+      <th>MeSH</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>['Alcohols', 'metabolism', 'toxicity', 'Aldehy...</td>
+      <td>24852702</td>
+      <td>Initiation of Oxidative</td>
+      <td>4-hydroxy-2-nonenal (4-HNE)</td>
+      <td>Aldehydes</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>['Adult', 'Aldehydes', 'metabolism', 'Case-Con...</td>
+      <td>24854020</td>
+      <td>Initiation of Oxidative</td>
+      <td>4-hydroxy-2-nonenal (4-HNE)</td>
+      <td>Aldehydes</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>['Acetylcysteine', 'pharmacology', 'Aldehydes'...</td>
+      <td>24854122</td>
+      <td>Initiation of Oxidative</td>
+      <td>4-hydroxy-2-nonenal (4-HNE)</td>
+      <td>Aldehydes</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>['4-Butyrolactone', 'chemistry', 'Aldehydes', ...</td>
+      <td>24877583</td>
+      <td>Initiation of Oxidative</td>
+      <td>4-hydroxy-2-nonenal (4-HNE)</td>
+      <td>Aldehydes</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>['Absorption, Physicochemical', 'Acetonitriles...</td>
+      <td>24878441</td>
+      <td>Initiation of Oxidative</td>
+      <td>4-hydroxy-2-nonenal (4-HNE)</td>
+      <td>Aldehydes</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<pre class="codehilite"><code class="language-python">pmid_per_cat_count = pd.DataFrame(ox_cat_df.groupby('category').PMID.nunique())
+pmid_per_cat_count</code></pre>
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>PMID</th>
+    </tr>
+    <tr>
+      <th>category</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Initiation of Oxidative</th>
+      <td>405009</td>
+    </tr>
+    <tr>
+      <th>Outcomes of Oxidative Stress</th>
+      <td>117386</td>
+    </tr>
+    <tr>
+      <th>Regulation of Oxidative Stress</th>
+      <td>1163548</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<h2 id="finding-drug-occurrences-for-each-oxidative-stress-category">Finding drug occurrences for each oxidative stress category</h2>
+<ul>
+<li>Loads <code>output/Drug_PMID_occurances.csv</code> file generated in <code>chemical_drug_elastic_occurance.ipynb</code></li>
+<li>merges with PMID occurances of oxidative stress categories defined above in variable <code>ox_cat_df</code></li>
+</ul>
+<pre class="codehilite"><code class="language-python">drug_occurance_df = pd.read_csv('output/Drug_PMID_occurances.csv')
+drug_occurance_df['PMID'] = drug_occurance_df['PMID'].astype(int)
+drug_occurance_df.head()</code></pre>
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>MeSH</th>
+      <th>PMID</th>
+      <th>abstract</th>
+      <th>count</th>
+      <th>title</th>
+      <th>drug</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>['Acarbose', 'therapeutic use', 'Asian Contine...</td>
+      <td>24853116</td>
+      <td>to demonstrate if weight loss achieved with ac...</td>
+      <td>14</td>
+      <td>Acarbose monotherapy and weight loss in Easter...</td>
+      <td>acarbose</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>['Asteraceae', 'chemistry', 'Astragalus Plant'...</td>
+      <td>24863354</td>
+      <td>the incidence of diabetes has increased consid...</td>
+      <td>2</td>
+      <td>Comparative evaluation of polysaccharides isol...</td>
+      <td>acarbose</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>['Acarbose', 'therapeutic use', 'Aged', 'Asian...</td>
+      <td>24866329</td>
+      <td>postprandial hyperglycemia and blood glucose f...</td>
+      <td>10</td>
+      <td>Effects of sitagliptin or mitiglinide as an ad...</td>
+      <td>acarbose</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>['Blood Glucose', 'physiology', 'Cyclohexanes'...</td>
+      <td>12918894</td>
+      <td>nateglinide is a new oral antidiabetic agent t...</td>
+      <td>2</td>
+      <td>Nateglinide (Starlix): update on a new antidia...</td>
+      <td>acarbose</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>['Digoxin', 'adverse effects', 'blood', 'Drug ...</td>
+      <td>20568489</td>
+      <td>digoxin has a narrow therapeutic margin and po...</td>
+      <td>2</td>
+      <td>Digoxin: serious drug interactions.</td>
+      <td>acarbose</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<pre class="codehilite"><code class="language-python">drug_ox_cat_df = ox_cat_df[['category', 'PMID']].drop_duplicates().merge(
+    drug_occurance_df,
+    validate='m:m',
+    how='inner',
+)</code></pre>
+
+
+<pre class="codehilite"><code class="language-python"># Drugs listed per category
+pd.DataFrame(drug_ox_cat_df.groupby('category').drug.nunique())</code></pre>
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>drug</th>
+    </tr>
+    <tr>
+      <th>category</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Initiation of Oxidative</th>
+      <td>142</td>
+    </tr>
+    <tr>
+      <th>Outcomes of Oxidative Stress</th>
+      <td>133</td>
+    </tr>
+    <tr>
+      <th>Regulation of Oxidative Stress</th>
+      <td>146</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<pre class="codehilite"><code class="language-python"># PMID Count per drug in a category
+
+sns.set_context('talk', font_scale=1.5)
+fig, ax = plt.subplots(figsize=(18,8))
+
+ax.set_yscale('symlog')
+
+sns.countplot(
+    x='category',
+    hue='drug',
+    data=drug_ox_cat_df,
+    ax=ax,
+)
+ax.legend().remove()
+sns.despine()
+ax.set_xlabel('')
+ax.set_ylabel('PMID Occurrences')</code></pre>
+
+
+<pre class="codehilite"><code>Text(0, 0.5, 'PMID Occurrences')</code></pre>
+
+
+<p><img alt="png" src="../output_9_1.png" /></p>
+<pre class="codehilite"><code class="language-python"># Print top drugs per category
+pmid_per_drug_count = pd.DataFrame(drug_ox_cat_df.groupby(['drug','category']).PMID.nunique())
+
+for cat, c_df in pmid_per_drug_count.reset_index().groupby('category'):
+    print(
+        cat,':',
+        ', '.join(c_df.sort_values(by='PMID', ascending=False).head(n=10).drug.values),
+        '\n'
+    )</code></pre>
+
+
+<pre class="codehilite"><code>Initiation of Oxidative : nitric oxide, penbutolol, nitroglycerin, nitroprusside, tpa, adenosine, norepinephrine, dopamine, aspirin, captopril
+
+Outcomes of Oxidative Stress : penbutolol, nitric oxide, tpa, nitroglycerin, adenosine, dopamine, captopril, aspirin, norepinephrine, isoprenaline
+
+Regulation of Oxidative Stress : penbutolol, tpa, nitric oxide, nitroglycerin, adenosine, dopamine, heparin, norepinephrine, captopril, aspirin</code></pre>
+
+
+<h2 id="creating-inputs-to-caseolap-pipeline">Creating inputs to caseOLAP pipeline</h2>
+<h3 id="metadata_pmid2countjson">metadata_pmid2count.json</h3>
+<ul>
+<li>File containing a dictionary with structure:</li>
+</ul>
+<pre class="codehilite"><code>{
+    &quot;PMID&quot;: {
+        &quot;Entity&quot;: &quot;# of Occurences&quot;
+    }
+}</code></pre>
+
+
+<pre class="codehilite"><code class="language-python">pmid2count = {}
+# ONLY LOOKS AT PMIDS WITH BOTH A DRUG AND A CATEGORY ASSOCIATED
+for (pmid, entity), p_df in drug_occurance_df.groupby(['PMID', 'drug']):
+    pmid = str(pmid)
+
+    if len(p_df['count'].values) &gt; 1:
+        if len(p_df[['PMID', 'count']].drop_duplicates()) &gt; 1:
+            print('ERROR LONG VALUE', p_df)
+    if not pmid in pmid2count.keys():
+        pmid2count[pmid] = {}
+    pmid2count[pmid][entity] = str(list(p_df['count'].values)[0])</code></pre>
+
+
+<pre class="codehilite"><code class="language-python">with open('output/metadata_pmid2count.json', 'w') as pmid2count_json:
+    json.dump(pmid2count, pmid2count_json)    </code></pre>
+
+
+<h3 id="metadata_cell2pmidjson">metadata_cell2pmid.json</h3>
+<ul>
+<li>File containing a dictionary with structure:</li>
+</ul>
+<pre class="codehilite"><code>{
+    &quot;Category&quot;: [&quot;PMID&quot;,...]
+}</code></pre>
+
+
+<pre class="codehilite"><code class="language-python">long_short_category_map = {
+    &quot;Initiation of Oxidative&quot;: &quot;IoOS&quot;,
+    &quot;Outcomes of Oxidative Stress&quot;: &quot;OoOS&quot;,
+    &quot;Regulation of Oxidative Stress&quot;: &quot;RoOS&quot;
+}</code></pre>
+
+
+<pre class="codehilite"><code class="language-python">drug_ox_cat_df['category_short'] = drug_ox_cat_df['category'].map(long_short_category_map)</code></pre>
+
+
+<pre class="codehilite"><code class="language-python">cell2pmid = {}
+for category, c_df in drug_ox_cat_df.groupby('category_short'):
+    cell2pmid[category] = list(c_df.PMID.astype(str).unique().values)</code></pre>
+
+
+<pre class="codehilite"><code class="language-python">with open('output/metadata_cell2pmid.json', 'w') as cell2pmid_json:
+    json.dump(cell2pmid, cell2pmid_json)    </code></pre>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../../Explore_Drug_chemical_OxStress/Explore_Drug_chemical_OxStress/" class="btn btn-neutral float-right" title="Finding Common Pathways Used by Drugs">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../../Occurrence_Count_Plots/Occurrence_Count_Plots/" class="btn btn-neutral" title="Visualizing Distribution of Data in Pubmed"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../../Occurrence_Count_Plots/Occurrence_Count_Plots/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../../Explore_Drug_chemical_OxStress/Explore_Drug_chemical_OxStress/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '../../..';</script>
+    <script src="../../../js/theme.js" defer></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML" defer></script>
+      <script src="../../../search/main.js" defer></script>
+
+</body>
+</html>

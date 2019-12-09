@@ -14,6 +14,11 @@ from elasticsearch_dsl import Search, Q
 import pandas as pd
 from itertools import product
 import seaborn as sns
+import numpy as np
+import time
+import matplotlib.pyplot as plt
+import json
+import progressbar
 ```
 
 ## Load Drug and Chemical lists, initialize Elastic Search
@@ -22,7 +27,12 @@ import seaborn as sns
 
 
 ```python
-chemical_list_df = pd.read_csv('Oxidative Stress Text Mining Targets 4.1 - Summary of Oxidative Stress.csv')
+chemical_list_df = pd.read_csv('input/oxidative_stress_chemicals_SA_10222019.csv')
+chemical_list_df['Molecule/Enzyme/Protein'] = chemical_list_df['Molecule/Enzyme/Protein'].str.lower().str.strip()
+```
+
+
+```python
 chemical_list_df.head()
 ```
 
@@ -63,9 +73,9 @@ chemical_list_df.head()
   <tbody>
     <tr>
       <th>0</th>
-      <td>Initiation of Oxidative  1</td>
+      <td>Initiation of Oxidative</td>
       <td>Reactive Oxygen Species (ROS)</td>
-      <td>Superoxide (anion radical)</td>
+      <td>superoxide (anion radical)</td>
       <td>Superoxides</td>
       <td>NaN</td>
       <td>D01.248.497.158.685.750.850; D01.339.431.374.8...</td>
@@ -77,9 +87,9 @@ chemical_list_df.head()
     </tr>
     <tr>
       <th>1</th>
-      <td>2</td>
-      <td>NaN</td>
-      <td>Hydrogen Peroxide</td>
+      <td>Initiation of Oxidative</td>
+      <td>Reactive Oxygen Species (ROS)</td>
+      <td>hydrogen peroxide</td>
       <td>Hydrogen Peroxide</td>
       <td>NaN</td>
       <td>D01.248.497.158.685.750.424; D01.339.431.374.4...</td>
@@ -91,8 +101,8 @@ chemical_list_df.head()
     </tr>
     <tr>
       <th>2</th>
-      <td>NaN</td>
-      <td>NaN</td>
+      <td>Initiation of Oxidative</td>
+      <td>Reactive Oxygen Species (ROS)</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -105,9 +115,9 @@ chemical_list_df.head()
     </tr>
     <tr>
       <th>3</th>
-      <td>3</td>
-      <td>NaN</td>
-      <td>Hydroxyl (radical)</td>
+      <td>Initiation of Oxidative</td>
+      <td>Reactive Oxygen Species (ROS)</td>
+      <td>hydroxyl (radical)</td>
       <td>Hydroxyl Radical</td>
       <td>NaN</td>
       <td>D01.339.431.249; D01.248.497.158.459.300; D01....</td>
@@ -119,8 +129,8 @@ chemical_list_df.head()
     </tr>
     <tr>
       <th>4</th>
-      <td>4</td>
-      <td>NaN</td>
+      <td>Initiation of Oxidative</td>
+      <td>Reactive Oxygen Species (ROS)</td>
       <td>alpha oxygen</td>
       <td>None listed</td>
       <td>NaN</td>
@@ -139,7 +149,8 @@ chemical_list_df.head()
 
 
 ```python
-drug_list_df = pd.read_csv('Drug list total 04.05.19   - Overview Drug list.csv')
+drug_list_df = pd.read_csv('input/drug_list_SA_10222019.csv')
+drug_list_df['Name'] = drug_list_df['Name'].str.lower().str.strip()
 drug_list_df.head()
 ```
 
@@ -173,14 +184,25 @@ drug_list_df.head()
       <th>Common adverse effects</th>
       <th>Dosage (freq/amount/time/delivery)</th>
       <th>Duration (time)</th>
-      <th>Pham Action</th>
+      <th>Pharm Action</th>
+      <th>...</th>
+      <th>Unnamed: 1015</th>
+      <th>Unnamed: 1016</th>
+      <th>Unnamed: 1017</th>
+      <th>Unnamed: 1018</th>
+      <th>Unnamed: 1019</th>
+      <th>Unnamed: 1020</th>
+      <th>Unnamed: 1021</th>
+      <th>Unnamed: 1022</th>
+      <th>Unnamed: 1023</th>
+      <th>Unnamed: 1024</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <th>0</th>
       <td>Anticoagulants</td>
-      <td>1</td>
+      <td>1.0</td>
       <td>heparin</td>
       <td>['Calciparine', 'Eparina', 'heparina', 'Hepari...</td>
       <td>heparin</td>
@@ -189,11 +211,22 @@ drug_list_df.head()
       <td>1/18U/kg/iv</td>
       <td>2 days</td>
       <td>Anticoagulants, \nFibrinolytic Agents</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>NaN</td>
-      <td>2</td>
+      <td>Anticoagulants</td>
+      <td>2.0</td>
       <td>warfarin</td>
       <td>['4-Hydroxy-3-(3-oxo-1-phenylbutyl)coumarin', ...</td>
       <td>warfarin</td>
@@ -202,11 +235,22 @@ drug_list_df.head()
       <td>1/2-10mg/day/po</td>
       <td>As needed</td>
       <td>Anticoagulants, \nRodenticides</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
     </tr>
     <tr>
       <th>2</th>
       <td>Thrombolytics</td>
-      <td>3</td>
+      <td>3.0</td>
       <td>streptokinase</td>
       <td>['Streptokinase C precursor']</td>
       <td>streptokinase</td>
@@ -215,11 +259,22 @@ drug_list_df.head()
       <td>1/1,500,000 IU/iv</td>
       <td>60min</td>
       <td>Fibrinolytic Agents</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>NaN</td>
-      <td>4</td>
+      <td>Thrombolytics</td>
+      <td>4.0</td>
       <td>urokinase</td>
       <td>['U-plasminogen activator', 'uPA', 'Urokinase-...</td>
       <td>Urokinase-Type Plasminogen Activator</td>
@@ -228,11 +283,22 @@ drug_list_df.head()
       <td>1/4,000,000U/iv</td>
       <td>10min</td>
       <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
     </tr>
     <tr>
       <th>4</th>
-      <td>NaN</td>
-      <td>5</td>
+      <td>Thrombolytics</td>
+      <td>5.0</td>
       <td>tpa</td>
       <td>['Alteplasa', 'Alteplase (genetical recombinat...</td>
       <td>Tissue Plasminogen Activator</td>
@@ -241,20 +307,33 @@ drug_list_df.head()
       <td>1/0.9mg/kg/iv</td>
       <td>60min</td>
       <td>Fibrinolytic Agents</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
     </tr>
   </tbody>
 </table>
+<p>5 rows × 1025 columns</p>
 </div>
 
 
 
 
 ```python
-es = Elasticsearch()
+es = Elasticsearch(timeout=300)
 
 ```
 
 ## Find PMIDs associated with every combination of drugs and chemicals via elastic search
+- output file saved to `output/chem_drug_pair_matches.csv`
 
 
 ```python
@@ -264,16 +343,17 @@ drug_chemicals = product(
     chemical_list_df['Molecule/Enzyme/Protein'].dropna().unique()
 )
 
-
 matches = pd.DataFrame()
-for (drug, chemical) in drug_chemicals:
+for (drug, chemical) in progressbar.progressbar(drug_chemicals):
 
     mol_matches = {
             'PMID': [],
             'title': [],
+            'Year': [],
+            'Month': []
         }    
     # Match drug and chemical
-    q = Q("match_phrase", abstract=drug) & Q("match_phrase", abstract=chemical)
+    q = Q("match_phrase", abstract=drug.lower().strip()) & Q("match_phrase", abstract=chemical.lower().strip())
     
     # Search
     hits = Search(
@@ -282,18 +362,24 @@ for (drug, chemical) in drug_chemicals:
     ).params(
         request_timeout=300
     ).query(q)
-    for h in hits:
+    for h in hits.scan():
+        date_dict = json.loads(h.date.replace("'", '"'))        
         mol_matches['PMID'].append(h.pmid)
         mol_matches['title'].append(h.title)
-    
+        mol_matches['Year'].append(date_dict['Year'])
+        mol_matches['Month'].append(date_dict['Month'])
+        
     match_df = pd.DataFrame.from_dict(mol_matches)
-    match_df['drug'] = drug
-    match_df['chemical'] = chemical
+    match_df['drug'] = drug.lower().strip()
+    match_df['chemical'] = chemical.lower().strip()
     matches = matches.append(match_df)
 
 matches.head()
 ```
 
+    | |                   #                           | 21059 Elapsed Time: 0:13:02
+
+
 
 
 
@@ -317,6 +403,8 @@ matches.head()
       <th></th>
       <th>PMID</th>
       <th>title</th>
+      <th>Year</th>
+      <th>Month</th>
       <th>drug</th>
       <th>chemical</th>
     </tr>
@@ -324,38 +412,48 @@ matches.head()
   <tbody>
     <tr>
       <th>0</th>
-      <td>9655178</td>
-      <td>Association of myeloperoxidase with heparin: o...</td>
+      <td>8376590</td>
+      <td>Homocysteine, a thrombogenic agent, suppresses...</td>
+      <td>1993</td>
+      <td>Sep</td>
       <td>heparin</td>
-      <td>Hydrogen Peroxide</td>
+      <td>hydrogen peroxide</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>10187813</td>
-      <td>Oxidation of methionine residues in antithromb...</td>
+      <td>25037421</td>
+      <td>Degradation of fucoidans from Sargassum fulvel...</td>
+      <td>2014</td>
+      <td>Oct</td>
       <td>heparin</td>
-      <td>Hydrogen Peroxide</td>
+      <td>hydrogen peroxide</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>30879129</td>
-      <td>Heparin prevents oxidative stress-induced apop...</td>
+      <td>14561655</td>
+      <td>Role of hydrogen peroxide in sperm capacitatio...</td>
+      <td>2004</td>
+      <td>Feb</td>
       <td>heparin</td>
-      <td>Hydrogen Peroxide</td>
+      <td>hydrogen peroxide</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>8181006</td>
-      <td>Evidence of a selective free radical degradati...</td>
+      <td>9040037</td>
+      <td>Protective effect of dextran sulfate and hepar...</td>
+      <td>1997</td>
+      <td>Jan</td>
       <td>heparin</td>
-      <td>Hydrogen Peroxide</td>
+      <td>hydrogen peroxide</td>
     </tr>
     <tr>
       <th>4</th>
-      <td>1321628</td>
-      <td>Heparin: does it act as an antioxidant in vivo?</td>
+      <td>10547607</td>
+      <td>Heparin-binding EGF-like growth factor is expr...</td>
+      <td>1999</td>
+      <td>Nov</td>
       <td>heparin</td>
-      <td>Hydrogen Peroxide</td>
+      <td>hydrogen peroxide</td>
     </tr>
   </tbody>
 </table>
@@ -365,19 +463,225 @@ matches.head()
 
 
 ```python
+matches.to_csv('output/chem_drug_pair_matches.csv', index=False)
+```
+
+
+```python
+matches = pd.read_csv('output/chem_drug_pair_matches.csv')
+```
+
+### Plotting Drug, chemical co-occurence heatmap
+- colors used to show category of drug, and oxidative stress category association of chemicals
+
+
+```python
+chem_name_cats = chemical_list_df[['Molecule/Enzyme/Protein', 'Biological Events of Oxidative Stress']]\
+    .drop_duplicates().rename(columns={
+        'Molecule/Enzyme/Protein': 'chemical',
+        'Biological Events of Oxidative Stress':'chem_cat'
+    }).dropna()
+drug_name_cats = drug_list_df[['Name', 'Drug Category']]\
+    .drop_duplicates().rename(columns={
+        'Name': 'drug',
+        'Drug Category': 'drug_cat'
+    }).dropna()
+with_cats_matches = matches.merge(
+    chem_name_cats,
+    how='left',
+    validate='m:m'
+)
+with_cats_matches = with_cats_matches.merge(
+    drug_name_cats,
+    how='left',
+    validate='m:m'
+)
+print(matches.dropna().shape, with_cats_matches.dropna().shape)
+with_cats_matches.head()
+```
+
+    (199479, 6) (204265, 8)
+
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>PMID</th>
+      <th>title</th>
+      <th>Year</th>
+      <th>Month</th>
+      <th>drug</th>
+      <th>chemical</th>
+      <th>chem_cat</th>
+      <th>drug_cat</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>8376590</td>
+      <td>Homocysteine, a thrombogenic agent, suppresses...</td>
+      <td>1993.0</td>
+      <td>Sep</td>
+      <td>heparin</td>
+      <td>hydrogen peroxide</td>
+      <td>Initiation of Oxidative</td>
+      <td>Anticoagulants</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>25037421</td>
+      <td>Degradation of fucoidans from Sargassum fulvel...</td>
+      <td>2014.0</td>
+      <td>Oct</td>
+      <td>heparin</td>
+      <td>hydrogen peroxide</td>
+      <td>Initiation of Oxidative</td>
+      <td>Anticoagulants</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>14561655</td>
+      <td>Role of hydrogen peroxide in sperm capacitatio...</td>
+      <td>2004.0</td>
+      <td>Feb</td>
+      <td>heparin</td>
+      <td>hydrogen peroxide</td>
+      <td>Initiation of Oxidative</td>
+      <td>Anticoagulants</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>9040037</td>
+      <td>Protective effect of dextran sulfate and hepar...</td>
+      <td>1997.0</td>
+      <td>Jan</td>
+      <td>heparin</td>
+      <td>hydrogen peroxide</td>
+      <td>Initiation of Oxidative</td>
+      <td>Anticoagulants</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>10547607</td>
+      <td>Heparin-binding EGF-like growth factor is expr...</td>
+      <td>1999.0</td>
+      <td>Nov</td>
+      <td>heparin</td>
+      <td>hydrogen peroxide</td>
+      <td>Initiation of Oxidative</td>
+      <td>Anticoagulants</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+```python
+with_cats_matches.chem_cat.unique()
+```
+
+
+
+
+    array(['Initiation of Oxidative', 'Outcomes of Oxidative Stress',
+           'Regulation of Oxidative Stress'], dtype=object)
+
+
+
+
+```python
+# Creating color palettes to label drug and chemical categories
+chems = with_cats_matches.chem_cat.unique()
+chem_pal = sns.color_palette("hls", n_colors=with_cats_matches.chem_cat.nunique())
+chem_pal_dict = dict(zip(chems, chem_pal))
+
+drugs = with_cats_matches.drug_cat.unique()
+drug_pal = sns.color_palette("tab20c", n_colors=with_cats_matches.drug_cat.nunique())
+drug_pal[-5:] = sns.color_palette("tab20b", n_colors=5)
+drug_pal_dict = dict(zip(drugs, drug_pal))
+
+with_cats_matches['chem_color'] = with_cats_matches.chem_cat.map(chem_pal_dict)
+with_cats_matches['drug_color'] = with_cats_matches.drug_cat.map(drug_pal_dict)
+
+sns.palplot(chem_pal)
+plt.gca().set_xticklabels(chems)
+plt.xticks(rotation=60)
+sns.palplot(drug_pal)
+plt.gca().set_xticklabels(drugs)
+plt.xticks(rotation=90);
+```
+
+
+![png](output_14_0.png)
+
+
+
+![png](output_14_1.png)
+
+
+
+```python
+## Save Color Palettes
+with open('drug_cat_palette.json', 'w') as fp:
+    json.dump(drug_pal_dict, fp)
+
+with open('chem_cat_palette.json', 'w') as fp:
+    json.dump(chem_pal_dict, fp)
+```
+
+
+```python
+# Set NaN category color to white
+with_cats_matches.loc[with_cats_matches.drug_color.isna(), 'drug_color'] = "white"
+```
+
+
+```python
+# Count articles per drug-chemical co-occurrence
 article_count = pd.DataFrame(
-    matches.groupby(['drug', 'chemical']).PMID.nunique()
+    with_cats_matches.groupby(['drug', 'chemical', 'drug_cat', 'chem_cat']).PMID.nunique()
 ).reset_index().rename(columns={'PMID': 'Article Count'})
+article_count['log_count'] = np.log10(article_count['Article Count'])
+
+chem_colors_df = with_cats_matches[['chemical', 'chem_color']].drop_duplicates()
+chem_colors = [chem_colors_df[chem_colors_df.chemical == chem].chem_color.unique()[0] for chem in piv_count.index]
+
+drug_colors_df = with_cats_matches[['drug', 'drug_color']].drop_duplicates()
+drug_colors = [drug_colors_df[drug_colors_df.drug == drug].drug_color.unique()[0] for drug in piv_count.columns]
+
 piv_count = article_count.pivot_table(
     index='chemical',
     columns='drug',
-    values='Article Count',
+    values='log_count',
     fill_value=0
 )
 sns.clustermap(
     piv_count,
     figsize=(22,13),
-    cmap='viridis'
+    cmap='viridis',
+    row_colors=chem_colors,
+    col_colors=drug_colors
 )
 
 ```
@@ -385,49 +689,75 @@ sns.clustermap(
 
 
 
-    <seaborn.matrix.ClusterGrid at 0x7fe7382b6588>
+    <seaborn.matrix.ClusterGrid at 0x7ff7afcb4898>
 
 
 
 
-![png](output_8_1.png)
+![png](output_17_1.png)
 
 
-## Find PMIDS assocaited with drugs and chemicals via elastic search
+## Find PMIDS assocaited with drugs via elastic search
+- Searches abstracts for drug names or synonyms of drug names
+- Finds number of occurances of drug name or synonyms in abstract
+
+Saves to `output/Drug_PMID_occurances.csv`
 
 
 ```python
 drug_matches = pd.DataFrame()
-for drug, m_df in drug_list_df.groupby('Name'):
+tot = drug_list_df.Name.nunique()
+
+for (drug, synonyms, category), m_df in progressbar.progressbar(drug_list_df.groupby(['Name', 'Synonyms', 'Drug Category'])):
     drug_match = {
             'PMID': [],
             'title': [],
-            'abstract': [],
-            'MeSH': []
+            'MeSH': [],
+            'count': [],
+            'Year': [],
+            'Month': []
         }
+    synonyms = synonyms.split(', ')
+    drug = drug.lower()
+    q = Q('match_phrase', abstract=drug)
+
+    if synonyms:
+        synonyms = [s.lower() for s in synonyms]
+        for s in synonyms:
+            q = q | Q('match_phrase', abstract=s)
+    
     hits = Search(
         using=es,
         index="pubmed"
-        ).params(
-            request_timeout=300
-        ).query(
-            "match_phrase",
-            abstract=drug,
-        )
-    for h in hits:
+    ).query(q)
+
+    for h in hits.scan():
+        date_dict = json.loads(h.date.replace("'", '"'))        
         drug_match['PMID'].append(h.pmid)
         drug_match['title'].append(h.title)
-        drug_match['abstract'].append(h.abstract)
         drug_match['MeSH'].append(h.MeSH)
-
-
+        drug_match['Year'].append(date_dict['Year'])
+        drug_match['Month'].append(date_dict['Month'])
+        
+        entity_count = 0
+        for phrase in [drug] + synonyms:
+            entity_lower = phrase.lower().replace("-", " ")
+            entity_count += abs_lower.count(entity_lower)
+        
+        drug_match['count'].append(entity_count)
+    
     drug_match_df = pd.DataFrame.from_dict(drug_match)
     drug_match_df['drug'] = drug
+    drug_match_df['category'] = category
     drug_matches = drug_matches.append(drug_match_df)
+
 
 drug_matches.head()
 ```
 
+    100% (161 of 161) |######################| Elapsed Time: 0:37:59 Time:  0:37:59
+
+
 
 
 
@@ -449,53 +779,71 @@ drug_matches.head()
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>MeSH</th>
       <th>PMID</th>
-      <th>abstract</th>
       <th>title</th>
+      <th>MeSH</th>
+      <th>count</th>
+      <th>Year</th>
+      <th>Month</th>
       <th>drug</th>
+      <th>category</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <th>0</th>
-      <td>[Actinomycetales, chemistry, enzymology, Adeno...</td>
-      <td>8784428</td>
-      <td>a phosphotransferase which modifies the alpha ...</td>
-      <td>Acarbose 7-phosphotransferase from Actinoplane...</td>
-      <td>Acarbose</td>
+      <td>24853116</td>
+      <td>Acarbose monotherapy and weight loss in Easter...</td>
+      <td>[Acarbose, therapeutic use, Asian Continental ...</td>
+      <td>0</td>
+      <td>2014</td>
+      <td>Nov</td>
+      <td>acarbose</td>
+      <td>Alpha-glucosidase Inhibitors</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>[Acarbose, Adult, Blood Glucose, metabolism, C...</td>
-      <td>6350115</td>
-      <td>in a double blind study we have compared the e...</td>
-      <td>Effect of acarbose, pectin, a combination of a...</td>
-      <td>Acarbose</td>
+      <td>24863354</td>
+      <td>Comparative evaluation of polysaccharides isol...</td>
+      <td>[Asteraceae, chemistry, Astragalus Plant, chem...</td>
+      <td>0</td>
+      <td>2014</td>
+      <td>Apr</td>
+      <td>acarbose</td>
+      <td>Alpha-glucosidase Inhibitors</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>[Acarbose, Adult, Aged, Blood Glucose, metabol...</td>
-      <td>9663365</td>
-      <td>acarbose is an alpha glucosidase inhibitor app...</td>
-      <td>Effects of beano on the tolerability and pharm...</td>
-      <td>Acarbose</td>
+      <td>24866329</td>
+      <td>Effects of sitagliptin or mitiglinide as an ad...</td>
+      <td>[Acarbose, therapeutic use, Aged, Asian Contin...</td>
+      <td>0</td>
+      <td>2014</td>
+      <td>Jul</td>
+      <td>acarbose</td>
+      <td>Alpha-glucosidase Inhibitors</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>[Acarbose, administration &amp; dosage, Animals, B...</td>
-      <td>11779583</td>
-      <td>as alpha glucosidase inhibitor, the antidiabet...</td>
-      <td>Chronic acarbose-feeding increases GLUT1 prote...</td>
-      <td>Acarbose</td>
+      <td>12918894</td>
+      <td>Nateglinide (Starlix): update on a new antidia...</td>
+      <td>[Blood Glucose, physiology, Cyclohexanes, phar...</td>
+      <td>0</td>
+      <td></td>
+      <td></td>
+      <td>acarbose</td>
+      <td>Alpha-glucosidase Inhibitors</td>
     </tr>
     <tr>
       <th>4</th>
-      <td>[Acarbose, Aged, Blood Glucose, metabolism, Di...</td>
-      <td>9428831</td>
-      <td>to compare the therapeutic potential of acarbo...</td>
-      <td>Efficacy of 24-week monotherapy with acarbose,...</td>
-      <td>Acarbose</td>
+      <td>20568489</td>
+      <td>Digoxin: serious drug interactions.</td>
+      <td>[Digoxin, adverse effects, blood, Drug Interac...</td>
+      <td>0</td>
+      <td>2010</td>
+      <td>Apr</td>
+      <td>acarbose</td>
+      <td>Alpha-glucosidase Inhibitors</td>
     </tr>
   </tbody>
 </table>
@@ -505,40 +853,21 @@ drug_matches.head()
 
 
 ```python
-drug_matches.to_csv('Drug_PMID_occurances.csv', index=False)
+drug_matches.to_csv('output/Drug_PMID_occurances.csv', index=False)
+drug_matches.shape
 ```
 
 
+
+
+    (2702853, 8)
+
+
+
+
 ```python
-chem_matches = pd.DataFrame()
-for chemical, m_df in chemical_list_df.groupby('Molecule/Enzyme/Protein'):
-    chem_match = {
-            'PMID': [],
-            'title': [],
-            'abstract': [],
-            'MeSH': []
-        }
-    hits = Search(
-        using=es,
-        index="pubmed"
-        ).params(
-            request_timeout=300
-        ).query(
-            "match_phrase",
-            abstract=chemical,
-        )
-    for h in hits:
-        chem_match['PMID'].append(h.pmid)
-        chem_match['title'].append(h.title)
-        chem_match['abstract'].append(h.abstract)
-        chem_match['MeSH'].append(h.MeSH)
-
-
-    chem_match_df = pd.DataFrame.from_dict(chem_match)
-    chem_match_df['chemical'] = chemical
-    chem_matches = chem_matches.append(chem_match_df)
-
-chem_matches.head()
+drug_category_PMID_count = pd.DataFrame(drug_matches.groupby('category').PMID.nunique()).reset_index()
+drug_category_PMID_count
 ```
 
 
@@ -562,192 +891,295 @@ chem_matches.head()
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>MeSH</th>
+      <th>category</th>
       <th>PMID</th>
-      <th>abstract</th>
-      <th>title</th>
-      <th>chemical</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <th>0</th>
-      <td>[]</td>
-      <td>31368101</td>
-      <td>coronary spasm plays an important role in the ...</td>
-      <td>Association of East Asian Variant Aldehyde Deh...</td>
-      <td>4-hydroxy-2-nonenal (4-HNE)</td>
+      <td>ACE Inhibitors</td>
+      <td>70299</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>[Acetylcholinesterase, metabolism, Aldehydes, ...</td>
-      <td>10463393</td>
-      <td>we have investigated the effect of soman induc...</td>
-      <td>Increased levels of nitrogen oxides and lipid ...</td>
-      <td>4-hydroxy-2-nonenal (4-HNE)</td>
+      <td>Alpha-glucosidase Inhibitors</td>
+      <td>2008</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>[Aldehydes, chemistry, Amines, chemistry, Benz...</td>
-      <td>8448343</td>
-      <td>the reaction of trans 4 hydroxy 2 nonenal (4 h...</td>
-      <td>Pyrrole formation from 4-hydroxynonenal and pr...</td>
-      <td>4-hydroxy-2-nonenal (4-HNE)</td>
+      <td>Angiotensin II Antagonists</td>
+      <td>16230</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>[Animals, Blood-Brain Barrier, metabolism, pat...</td>
-      <td>29775963</td>
-      <td>brain ischemic preconditioning (ipc) with mild...</td>
-      <td>Brain ischemic preconditioning protects agains...</td>
-      <td>4-hydroxy-2-nonenal (4-HNE)</td>
+      <td>Anticoagulants</td>
+      <td>80628</td>
     </tr>
     <tr>
       <th>4</th>
-      <td>[Alzheimer Disease, drug therapy, enzymology, ...</td>
-      <td>30218858</td>
-      <td>excessive production of amyloid β (aβ) induced...</td>
-      <td>Neuro-protective effects of aloperine in an Al...</td>
-      <td>4-hydroxy-2-nonenal (4-HNE)</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-
-
-
-
-```python
-chem_matches.to_csv('Chemical_PMID_occurances.csv', index=False)
-```
-
-
-```python
-chem_matches.merge(drug_matches[['PMID', 'drug']])
-```
-
-
-
-
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>MeSH</th>
-      <th>PMID</th>
-      <th>abstract</th>
-      <th>title</th>
-      <th>chemical</th>
-      <th>drug</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>[Anaphylaxis, metabolism, physiopathology, Ani...</td>
-      <td>8576313</td>
-      <td>nitric oxide, synthesized from the guanidino g...</td>
-      <td>Role of nitric oxide in anaphylactic shock.</td>
-      <td>Nitric oxide</td>
-      <td>nitric oxide</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>[Animals, Blotting, Western, Denervation, Immu...</td>
-      <td>10391455</td>
-      <td>nitric oxide may be liberated as an inflammato...</td>
-      <td>Evidence for nitric oxide and nitric oxide syn...</td>
-      <td>Nitric oxide</td>
-      <td>nitric oxide</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>[Administration, Inhalation, Adult, Aged, Atri...</td>
-      <td>15891329</td>
-      <td>to compare hemodynamic and gasometric variable...</td>
-      <td>Lack of alteration of endogenous nitric oxide ...</td>
-      <td>Nitric oxide</td>
-      <td>nitric oxide</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>[Administration, Inhalation, Coronary Artery B...</td>
-      <td>8614135</td>
-      <td>increased pulmonary vascular resistance may gr...</td>
-      <td>Effective control of pulmonary vascular resist...</td>
-      <td>Nitric oxide</td>
-      <td>nitric oxide</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>[1-Methyl-3-isobutylxanthine, pharmacology, An...</td>
-      <td>9722153</td>
-      <td>the structures capable of synthesizing cyclic ...</td>
-      <td>Distribution of nitric oxide synthase and nitr...</td>
-      <td>Nitric oxide</td>
-      <td>nitric oxide</td>
+      <td>Antiplatelets</td>
+      <td>82006</td>
     </tr>
     <tr>
       <th>5</th>
-      <td>[Amino Acid Oxidoreductases, metabolism, Anima...</td>
-      <td>7543936</td>
-      <td>in the myenteric plexus of the guinea pig ileu...</td>
-      <td>Analysis of connections between nitric oxide s...</td>
-      <td>Nitric oxide</td>
-      <td>nitric oxide</td>
+      <td>Beta Blockers</td>
+      <td>949488</td>
     </tr>
     <tr>
       <th>6</th>
-      <td>[Animals, Humans, Hypertension, metabolism, ph...</td>
-      <td>9914862</td>
-      <td>nitric oxide is hypothesized to be an inhibito...</td>
-      <td>Neural mechanisms in nitric-oxide-deficient hy...</td>
-      <td>Nitric oxide</td>
-      <td>nitric oxide</td>
+      <td>Bile Acid Resins</td>
+      <td>2459</td>
     </tr>
     <tr>
       <th>7</th>
-      <td>[Amino Acid Oxidoreductases, biosynthesis, Ani...</td>
-      <td>7532824</td>
-      <td>nitric oxide is produced in the cns by both co...</td>
-      <td>Modulation of inducible nitric oxide synthase ...</td>
-      <td>Nitric oxide</td>
-      <td>nitric oxide</td>
+      <td>Calcium Antagonist</td>
+      <td>47735</td>
     </tr>
     <tr>
       <th>8</th>
-      <td>[Administration, Inhalation, Animals, Drug Adm...</td>
-      <td>12594148</td>
-      <td>pulsed administration of nitric oxide has prov...</td>
-      <td>Administration of nitric oxide into open lung ...</td>
-      <td>Nitric oxide</td>
-      <td>nitric oxide</td>
+      <td>Calcium Channel Blockers</td>
+      <td>25446</td>
     </tr>
     <tr>
       <th>9</th>
-      <td>[Adult, Female, Humans, Luminescent Measuremen...</td>
-      <td>10367927</td>
-      <td>nasal nitric oxide is present in high concentr...</td>
-      <td>Nitric oxide accumulation in the nonventilated...</td>
-      <td>Nitric oxide</td>
-      <td>nitric oxide</td>
+      <td>Cholesteron Absorption Blocker</td>
+      <td>2554</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>Diuretics</td>
+      <td>28829</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>Fibrates</td>
+      <td>12214</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>Glucagon-like peptide-1 blockers</td>
+      <td>5180</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>HMG-CoA Reductase inhibitors (Statins)</td>
+      <td>22166</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>Inotropes</td>
+      <td>246382</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>Insulin</td>
+      <td>7386</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>Metformin</td>
+      <td>16564</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>Na Channel Blockers</td>
+      <td>42512</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>Other Anti Arrhythmics</td>
+      <td>130224</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>Phosphodiesterase Inhbitors</td>
+      <td>21894</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>Potassium Channel Blockers</td>
+      <td>10292</td>
+    </tr>
+    <tr>
+      <th>21</th>
+      <td>Sulfonylureas</td>
+      <td>12331</td>
+    </tr>
+    <tr>
+      <th>22</th>
+      <td>Thiazolidinediones</td>
+      <td>5089</td>
+    </tr>
+    <tr>
+      <th>23</th>
+      <td>Thrombolytics</td>
+      <td>309306</td>
+    </tr>
+    <tr>
+      <th>24</th>
+      <td>Vasodilators</td>
+      <td>408803</td>
+    </tr>
+    <tr>
+      <th>25</th>
+      <td>Vasopressin Antagonists</td>
+      <td>850</td>
     </tr>
   </tbody>
 </table>
 </div>
+
+
+
+## Searching for PMIDs associated with each chemical
+- If there is a MeSH id, searches pubmed index for abstract containing drug name OR MeSH terms containin mesh term 
+- If there is no MeSH id, only searches for drug name in abstract
+
+saves to `output/Chemical_PMID_occurances.csv`
+
+
+```python
+has_data_df = chemical_list_df[
+    (~chemical_list_df['Molecule/Enzyme/Protein'].isnull()) |
+    (~chemical_list_df['MeSH Heading'].isnull())
+]
+chem_matches_df = pd.DataFrame()
+
+for (name, mesh, category), m_df in progressbar.progressbar(has_data_df.groupby(['Molecule/Enzyme/Protein', 'MeSH Heading', 'Biological Events of Oxidative Stress'])):
+    hit_dict = {
+        'PMID': [],
+        'Article MeSH': [],
+        'Year': [],
+        'Month': [],
+    }
+    if mesh.lower() == 'none listed':
+        q = Q('match_phrase', abstract=name.lower())
+    else:
+        q = Q('match_phrase', abstract=name.lower()) | Q('match_phrase', MeSH=mesh)
+    
+    hits = Search(
+        using=es,
+        index="pubmed"
+    ).params(
+        request_timeout=300
+    ).query(q)
+    for h in hits.scan():
+        date_dict = json.loads(h.date.replace("'", '"'))
+        hit_dict['PMID'].append(h.pmid)
+        hit_dict['Article MeSH'].append(h.MeSH)
+        hit_dict['Year'].append(date_dict['Year'])
+        hit_dict['Month'].append(date_dict['Month'])
+    
+    
+    hit_df = pd.DataFrame.from_dict(hit_dict)
+    hit_df['category'] = category
+    hit_df['chemical'] = name
+    hit_df['MeSH'] = mesh
+    chem_matches_df = chem_matches_df.append(hit_df)
+
+chem_matches_df.head()
+```
+
+    100% (157 of 157) |######################| Elapsed Time: 0:44:52 Time:  0:44:52
+
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>PMID</th>
+      <th>Article MeSH</th>
+      <th>Year</th>
+      <th>Month</th>
+      <th>category</th>
+      <th>chemical</th>
+      <th>MeSH</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>24852702</td>
+      <td>[Alcohols, metabolism, toxicity, Aldehydes, me...</td>
+      <td>2014</td>
+      <td>Sep</td>
+      <td>Initiation of Oxidative</td>
+      <td>4-hydroxy-2-nonenal (4-HNE)</td>
+      <td>Aldehydes</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>24854020</td>
+      <td>[Adult, Aldehydes, metabolism, Case-Control St...</td>
+      <td>2015</td>
+      <td>Apr</td>
+      <td>Initiation of Oxidative</td>
+      <td>4-hydroxy-2-nonenal (4-HNE)</td>
+      <td>Aldehydes</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>24854122</td>
+      <td>[Acetylcysteine, pharmacology, Aldehydes, phar...</td>
+      <td>2014</td>
+      <td>Nov</td>
+      <td>Initiation of Oxidative</td>
+      <td>4-hydroxy-2-nonenal (4-HNE)</td>
+      <td>Aldehydes</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>24877583</td>
+      <td>[4-Butyrolactone, chemistry, Aldehydes, chemis...</td>
+      <td>2014</td>
+      <td>Jun</td>
+      <td>Initiation of Oxidative</td>
+      <td>4-hydroxy-2-nonenal (4-HNE)</td>
+      <td>Aldehydes</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>24878441</td>
+      <td>[Absorption, Physicochemical, Acetonitriles, c...</td>
+      <td>2014</td>
+      <td>Nov</td>
+      <td>Initiation of Oxidative</td>
+      <td>4-hydroxy-2-nonenal (4-HNE)</td>
+      <td>Aldehydes</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+```python
+chem_matches_df.to_csv('output/Chemical_PMID_occurances.csv', index=False)
+chem_matches_df.shape
+```
+
+
+
+
+    (3291433, 7)
 
 

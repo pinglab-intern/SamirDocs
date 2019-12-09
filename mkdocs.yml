@@ -37,11 +37,15 @@ nav:
 - Home: index.md
 - Implementation:
   - Querying ElasticSearch for Drug/Chemical Occurrence: 'implementation/chemical_drug_elastic_occurance/chemical_drug_elastic_occurance.md'
+  - Visualizing Distribution of Data in Pubmed: 'implementation/Occurrence_Count_Plots/Occurrence_Count_Plots.md'
+  - Generating Final Inputs for CaseOLAP: 'implementation/create_oxidative_stress_categories/create_oxidative_stress_categories.md'
   - Finding Common Pathways Used by Drugs: 'implementation/Explore_Drug_chemical_OxStress/Explore_Drug_chemical_OxStress.md'
   - Creating Drug/Chemical Co-Occurence GraphDB: 'implementation/Create_Drug_Cooccurance_Graph.md'
 - Instruction:
   - Querying ElasticSearch in Python: 'instructions/Query_Python_Elastic.md'
   - Querying Neo4J in Python: 'instructions/Query_Neo4j_Python.md'
+  - Export Neo4J Subgraph in Python: 'instructions/Export_Subgraph.md'
+  - Import GraphML Subgraph to Neo4J in Python: 'instructions/Import_Subgraph.md'
 - Notes:
   - Databases: 'notes/Databases.md'
   - ElasticSearch: 'notes/ElasticSearch.md'
